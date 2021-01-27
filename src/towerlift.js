@@ -1,3 +1,5 @@
+var nuevoJugador;
+
 class Jugador {
     constructor(id) {
         this.nombreJugador = id;
@@ -46,7 +48,7 @@ class Jugador {
         }
     }
 
-    descartarPersonaje() {
+    eliminarPersonaje() {
         let nombrePersonaje = prompt("Qué personaje quiere descartar?");
         nombrePersonaje = nombrePersonaje.toUpperCase().trim();
         for (let i = 0; i < nuevoJugador.listaDePersonajes.length; i++) {
@@ -193,12 +195,22 @@ class Mago extends Personaje {
     }
 }
 
-var nuevoJugador;
-creaciónDeJugador();
-
-function creaciónDeJugador() {
+function creacionDeJugador() {
     let id = prompt("Ingrese su apodo de jugador: ");
     nuevoJugador = new Jugador(id);
+}
+
+function guardarJugador() {
+    localStorage.setItem("jugador", JSON.stringify(nuevoJugador));
+}
+
+function cargarJugador() {
+    if(localStorage.getItem("jugador") != null){
+    nuevoJugador = JSON.parse(localStorage.getItem("jugador"));
+    //nuevoJugador.listaDePersonajes[0].status();
+    }else{
+        alert("No hay ninguna partida guardada!");
+    }
 }
 
 /*function SubirNivel (){

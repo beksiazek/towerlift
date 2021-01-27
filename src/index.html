@@ -2,32 +2,77 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Towerlift</title>
-    <script src='towerlift.js' async></script>
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
-    <!-- MDB -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.2.0/mdb.min.css" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Towerlift</title>
+  <script src='towerlift.js' async></script>
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+  <!-- MDB -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.2.0/mdb.min.css" rel="stylesheet" />
 </head>
 
 <body>
-    <b>Estás dentro de Towerlift</b>
-    <div id="info">
 
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <!-- Container wrapper -->
+    <div class="container-fluid">
+      <!-- Navbar brand -->
+      <a class="navbar-brand" href="#">Nombre de Jugador</a>
+
+      <!-- Toggle button -->
+      <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <!-- Collapsible wrapper -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!-- Left links -->
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Personajes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Simulador de batalla</a>
+          </li>
+        </ul>
+        <!-- Left links -->
+
+        <!-- Search form -->
+        <button class="btn btn-outline-primary" type="button" data-mdb-ripple-color="dark" onclick='cargarJugador()'>
+          CARGAR
+        </button>
+        <button class="btn btn-outline-primary" type="button" data-mdb-ripple-color="dark" onclick='guardarJugador()'>
+          GUARDAR
+        </button>
+        </form>
+      </div>
+      <!-- Collapsible wrapper -->
     </div>
-    <button class="btn btn-primary" onclick='nuevoJugador.crearPersonaje()'>
-        INICIAR PERSONAJE
-    </button>
-    <button onclick='nuevoJugador.mostrarStatus()'>
-        ACTUALIZAR STATUS
-    </button>
-    <button onclick='nuevoJugador.SubirNivel()'>
-        SUBIR DE NIVEL
-    </button>
+    <!-- Container wrapper -->
+  </nav>
+  <!-- Navbar -->
+
+  <b>Estás dentro de Towerlift</b>
+  <div id="info">
+
+  </div>
+  <button class="btn btn-primary" onclick='creacionDeJugador()'>
+    NUEVA PARTIDA
+  </button>
+  <button class="btn btn-primary" onclick='nuevoJugador.crearPersonaje()'>
+    CREAR PERSONAJE
+  </button>
+  <button class="btn btn-primary" onclick='nuevoJugador.mostrarStatus()'>
+    ACTUALIZAR STATUS
+  </button>
+  <button class="btn btn-primary" onclick='nuevoJugador.eliminarPersonaje()'>
+    ELIMINAR PERSONAJE
+  </button>
 </body>
 
 </html>
