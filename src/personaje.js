@@ -1,13 +1,13 @@
 class Personaje {
-    constructor(nombrePersonaje, nivel = 1) {
-        this.nombrePersonaje = nombrePersonaje;
+    constructor(nombre, nivel = 1) {
+        this.nombre = nombre;
         this.nivel = nivel;
     }
     status() {
         document.getElementById("status").innerHTML = `
          <div>
          <h3>Estado del personaje:</h3>
-         <h2>${this.nombrePersonaje}</h2>
+         <h2>${this.nombre}</h2>
          <p>${this.clase}</p>
          <p>Nvl. ${this.nivel}</p>
          <p>Exp. : ${this.experienciaActual} / ${this.experienciaMaxima}</p>

@@ -4,20 +4,24 @@ var jugador;
 function nuevaPartida() {
     let id = prompt("Ingrese su apodo de jugador: ");
     jugador = new Jugador(id);
-    document.getElementById("newgame-container").hidden = true;
+    document.getElementById("empezarpartida-container").hidden = true;
     document.getElementById("player-name").innerHTML = id;
     document.getElementById("main-container").hidden = false;
 }
 
-function guardarJugador() {
+function guardarPartida() {
     localStorage.setItem("jugador", JSON.stringify(jugador));
+    alert("Su partida ha sido guardada!");
 }
 
-function cargarJugador() {
+function cargarPartida() {
     if(localStorage.getItem("jugador") != null){
     let datosDelJugador = JSON.parse(localStorage.getItem("jugador"));
     jugador = new Jugador(datosDelJugador.nombreJugador);
-    jugador.cargarPersonajes(datosDelJugador.listaDePersonajes);
+    jugador.cargarPersonajes(datosDelJugador.personajes);
+    document.getElementById("empezarpartida-container").hidden = true;
+    document.getElementById("player-name").innerHTML = jugador.nombreJugador;
+    document.getElementById("main-container").hidden = false;
     }else{
         alert("No hay ninguna partida guardada!");
     }

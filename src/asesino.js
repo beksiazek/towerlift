@@ -1,7 +1,7 @@
 class Asesino extends Personaje {
-    constructor({nombrePersonaje, nivel, ...stats}) {
-        super(nombrePersonaje, nivel);
-        this.clase = 'Asesino';
+    constructor({nombre, nivel, clase, ...stats}) {
+        super(nombre, nivel);
+        this.clase = 'ASESINO';
         if(Object.keys(stats).length != 0){
             this.ataque = stats.ataque;
             this.poder = stats.poder;
@@ -28,8 +28,7 @@ class Asesino extends Personaje {
             this.manaActual = 0;
             this.experienciaMaxima = 50;
             this.experienciaActual = 0;
-        }
-        
+        }  
     }
     subirDeNivel() {
         super.subirDeNivel();
@@ -37,6 +36,9 @@ class Asesino extends Personaje {
         this.defensa = this.defensa + 1;
         this.agilidad = this.agilidad + 2;
         this.vidaMaxima = this.vidaMaxima + 8;
+        this.vidaActual = this.vidaMaxima;
         this.estaminaMaxima = this.estaminaMaxima + 4;
+        this.estaminaActual = this.estaminaMaxima;
+        this.manaActual = this.manaMaximo;
     }
 }

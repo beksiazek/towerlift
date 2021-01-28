@@ -24,9 +24,12 @@
 </head>
 
 <body>
-	<div id="newgame-container">
+	<div class="text-center" id="empezarpartida-container">
 		<button class="btn btn-primary" onclick='nuevaPartida()'>
 			NUEVA PARTIDA
+		</button>
+		<button class="btn btn-primary" onclick='cargarPartida()'>
+			CARGAR PARTIDA
 		</button>
 	</div>
 
@@ -61,11 +64,11 @@
 
 					<!-- Search form -->
 					<button class="btn btn-outline-primary" type="button" data-mdb-ripple-color="dark"
-						onclick='cargarJugador()'>
+						onclick='cargarPartida()'>
 						CARGAR
 					</button>
 					<button class="btn btn-outline-primary" type="button" data-mdb-ripple-color="dark"
-						onclick='guardarJugador()'>
+						onclick='guardarPartida()'>
 						GUARDAR
 					</button>
 					</form>

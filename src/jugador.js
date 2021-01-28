@@ -1,11 +1,11 @@
 class Jugador {
     constructor(id) {
         this.nombreJugador = id;
-        this.listaDePersonajes = [];
+        this.personajes = [];
     }
 
     crearPersonaje() {
-        if (this.listaDePersonajes.length < 4) {
+        if (this.personajes.length < 4) {
             let nombre = prompt("Ingrese el nombre de su personaje: ");
             nombre = nombre.trim();
             let clase;
@@ -19,9 +19,9 @@ class Jugador {
                 clase = clase.toUpperCase();
             }
 
-            let nuevoPersonaje = this._crearPersonaje({nombrePersonaje, clase});
+            let nuevoPersonaje = this._crearPersonaje({nombre, clase});
 
-            this.listaDePersonajes.push(nuevoPersonaje);
+            this.personajes.push(nuevoPersonaje);
 
             console.log("Se ha creado un nuevo ente.");
 
@@ -50,23 +50,23 @@ class Jugador {
         let personaje;
         for(let i=0; i<personajes.length; i++){
             personaje = this._crearPersonaje(personajes[i]);
-            jugador.listaDePersonajes.push(personaje);
+            jugador.personajes.push(personaje);
         }
     }
 
     eliminarPersonaje() {
         let nombrePersonaje = prompt("Qué personaje quiere descartar?");
         nombrePersonaje = nombrePersonaje.toUpperCase().trim();
-        for (let i = 0; i < jugador.listaDePersonajes.length; i++) {
+        for (let i = 0; i < jugador.personajes.length; i++) {
             if (
-                jugador.listaDePersonajes[i].nombrePersonaje.toUpperCase() ==
+                jugador.personajes[i].nombre.toUpperCase() ==
                 nombrePersonaje
             ) {
                 alert(
-                    jugador.listaDePersonajes[i].nombrePersonaje +
+                    jugador.personajes[i].nombre +
                         " fue descartado."
                 );
-                jugador.listaDePersonajes.splice(i, 1);
+                jugador.personajes.splice(i, 1);
                 var flag = 1;
             }
         }
@@ -77,12 +77,12 @@ class Jugador {
     mostrarStatus() {
         let nombrePersonaje = prompt("Qué personaje quiere visualizar?");
         nombrePersonaje = nombrePersonaje.toUpperCase().trim();
-        for (let i = 0; i < jugador.listaDePersonajes.length; i++) {
+        for (let i = 0; i < jugador.personajes.length; i++) {
             if (
-                jugador.listaDePersonajes[i].nombrePersonaje.toUpperCase() ==
+                jugador.personajes[i].nombre.toUpperCase() ==
                 nombrePersonaje
             ) {
-                jugador.listaDePersonajes[i].status();
+                jugador.personajes[i].status();
                 var flag = 1;
             }
         }
