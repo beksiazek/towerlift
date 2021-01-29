@@ -24,7 +24,7 @@ class Jugador {
             this.personajes.push(nuevoPersonaje);
 
             console.log("Se ha creado un nuevo ente.");
-
+            mostrarPersonajes();
             nuevoPersonaje.status();
         } else {
             alert(
@@ -54,40 +54,13 @@ class Jugador {
         }
     }
 
-    eliminarPersonaje() {
-        let nombrePersonaje = prompt("Qué personaje quiere descartar?");
-        nombrePersonaje = nombrePersonaje.toUpperCase().trim();
-        for (let i = 0; i < jugador.personajes.length; i++) {
-            if (
-                jugador.personajes[i].nombre.toUpperCase() ==
-                nombrePersonaje
-            ) {
-                alert(
-                    jugador.personajes[i].nombre +
-                        " fue descartado."
-                );
-                jugador.personajes.splice(i, 1);
-                var flag = 1;
-            }
-        }
-        if (flag != 1) {
-            alert("No existe ningún personaje con ese nombre.");
-        }
+    eliminarPersonaje(i) {
+        alert(
+            jugador.personajes[i].nombre +
+                " fue descartado."
+        );
+        jugador.personajes.splice(i, 1);
+        mostrarPersonajes();
     }
-    mostrarStatus() {
-        let nombrePersonaje = prompt("Qué personaje quiere visualizar?");
-        nombrePersonaje = nombrePersonaje.toUpperCase().trim();
-        for (let i = 0; i < jugador.personajes.length; i++) {
-            if (
-                jugador.personajes[i].nombre.toUpperCase() ==
-                nombrePersonaje
-            ) {
-                jugador.personajes[i].status();
-                var flag = 1;
-            }
-        }
-        if (flag != 1) {
-            alert("No existe ningún personaje con ese nombre.");
-        }
-    }
-}
+} 
+
