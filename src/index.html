@@ -23,14 +23,42 @@
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.2.0/mdb.min.js"></script>
 </head>
 
-<body>
+<body style="background-color: #BCAAA4;">
 	<div class="text-center" id="empezarpartida-container">
-		<button class="btn btn-primary" onclick='nuevaPartida()'>
+		<button class="btn btn-primary"  data-mdb-toggle="modal" data-mdb-target="#modal-apodo">
 			NUEVA PARTIDA
 		</button>
 		<button class="btn btn-primary" onclick='cargarPartida()'>
 			CARGAR PARTIDA
 		</button>
+		
+		
+		<!-- Modal -->
+		<div
+		class="modal fade"
+		id="modal-apodo"
+		tabindex="-1"
+		aria-labelledby="modal-apodoLabel"
+		aria-hidden="true"
+		>
+		<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+			<h5 class="modal-title">Ingrese su apodo:</h5>
+			</div>
+			<div class="form-outline">
+				<input type="text" id="input-apodo" class="form-control form-control-lg" style='font-size:30px;'/>
+				<label class="form-label" for="input-apodo">Apodo</label>
+			</div>
+			<div class="modal-footer">
+			<button type="button" class="btn btn-light" data-mdb-dismiss="modal">
+				&#10060;
+			</button>
+			<button type="button" class="btn btn-success" onclick="nuevaPartida()" data-mdb-dismiss="modal">EMPEZAR PARTIDA</button>
+			</div>
+		</div>
+		</div>
+		</div>
 	</div>
 
 
@@ -80,7 +108,7 @@
 		<!-- Navbar -->
 		
 		
-		<div class="tab-content" id="ex1-content">
+		<div class="tab-content" style="background-color: #BCAAA4;" id="ex1-content">
 			<div class="tab-pane fade show active" id="tab-personajes" role="tabpanel" aria-labelledby="ex1-tab-personajes">
 				<div id="cards-personajes" class="row">
 				</div>

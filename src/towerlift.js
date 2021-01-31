@@ -2,7 +2,7 @@ var jugador;
 
 //Separar funciones!!
 function nuevaPartida() {
-    let id = prompt("Ingrese su apodo de jugador: ");
+    let id = document.getElementById("input-apodo").value;
     jugador = new Jugador(id);
     document.getElementById("empezarpartida-container").hidden = true;
     document.getElementById("player-name").innerHTML = id;
@@ -33,7 +33,7 @@ function mostrarPersonajes() {
     for(i = 0; i<jugador.personajes.length; i++){
         cards += `
         <div class="col-6 col-md-3 col-lg-2">
-            <div class="card hover-shadow">
+            <div class="card shadow-2-strong hover-overlay">
                 <div class="bg-image">
                     <span style='font-size:100px;'>${
                     jugador.personajes[i].clase == 'ASESINO' ? "&#127993;" : 
@@ -41,15 +41,19 @@ function mostrarPersonajes() {
                     "&#128302;"}
                     </span>
                 </div>
-                <div class="card-body">
+                <div class="card-body hover-overlay">
                     <h5 class="card-title">${jugador.personajes[i].nombre}</h5>   
                     <p class="card-text">
                     ${jugador.personajes[i].clase} nvl.${jugador.personajes[i].nivel}
                     </p>
-                    <div class="text-center">
-                        <a class="btn btn-primary" onclick='jugador.personajes[${i}].status()'>STATUS</a>
-                        <a class="btn btn-primary" onclick='jugador.eliminarPersonaje(${i})'>ELIMINAR</a>
-                    </div>    
+                    <div
+                        class="mask" 
+                        style="background: linear-gradient(45deg, rgba(29, 236, 197, 0.1), rgba(0, 0, 0, 0.1) 100%);">
+                        <div class="text-center">
+                            <a class="btn btn-outline-dark btn-rounded" data-mdb-ripple-color="dark" onclick='jugador.personajes[${i}].status()'>STATUS</a>
+                            <a class="btn btn-outline-dark btn-rounded" data-mdb-ripple-color="dark" onclick='jugador.eliminarPersonaje(${i})'>ELIMINAR</a>
+                        </div>    
+                    </div>
                 </div>
             </div>
         </div>
