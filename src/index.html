@@ -6,58 +6,58 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Towerlift</title>
 	<script src="personaje.js" async></script>
-
 	<script src="asesino.js" async></script>
 	<script src="demoledor.js" async></script>
 	<script src="mago.js" async></script>
+	<script src="batalla.js" async></script>
 	<script src='jugador.js' async></script>
 	<script src='towerlift.js' async></script>
+
 	<!-- Font Awesome -->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
 	<!-- Google Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
 	<!-- MDB -->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.2.0/mdb.min.css" rel="stylesheet" />
-
 	<!-- MDB -->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.2.0/mdb.min.js"></script>
 </head>
 
 <body style="background-color: #BCAAA4;">
-	<div class="text-center" id="empezarpartida-container">
-		<button class="btn btn-primary"  data-mdb-toggle="modal" data-mdb-target="#modal-apodo">
-			NUEVA PARTIDA
-		</button>
-		<button class="btn btn-primary" onclick='cargarPartida()'>
-			CARGAR PARTIDA
-		</button>
-		
-		
+	<div id="empezarpartida-container">
+		<div class="position-absolute top-50 start-50 translate-middle">
+			<div class="d-flex flex-column">
+				<button class="btn btn-primary m-2 p-3" data-mdb-toggle="modal" data-mdb-target="#modal-apodo">
+					NUEVA PARTIDA
+				</button>
+				<button class="btn btn-primary m-2 p-3" onclick='cargarPartida()'>
+					CARGAR PARTIDA
+				</button>
+			</div>
+		</div>
+
+
 		<!-- Modal -->
-		<div
-		class="modal fade"
-		id="modal-apodo"
-		tabindex="-1"
-		aria-labelledby="modal-apodoLabel"
-		aria-hidden="true"
-		>
-		<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-			<h5 class="modal-title">Ingrese su apodo:</h5>
+		<div class="modal fade" id="modal-apodo" tabindex="-1" aria-labelledby="modal-apodoLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Ingrese su apodo:</h5>
+					</div>
+					<div class="form-outline">
+						<input type="text" id="input-apodo" class="form-control form-control-lg"
+							style='font-size:30px;' onkeypress="handleModalNuevaPartidaEnter(event)" />
+						<label class="form-label" for="input-apodo">Apodo</label>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-light" data-mdb-dismiss="modal">
+							&#10060;
+						</button>
+						<button type="button" class="btn btn-success" onclick="nuevaPartida()"
+							data-mdb-dismiss="modal">EMPEZAR PARTIDA</button>
+					</div>
+				</div>
 			</div>
-			<div class="form-outline">
-				<input type="text" id="input-apodo" class="form-control form-control-lg" style='font-size:30px;'/>
-				<label class="form-label" for="input-apodo">Apodo</label>
-			</div>
-			<div class="modal-footer">
-			<button type="button" class="btn btn-light" data-mdb-dismiss="modal">
-				&#10060;
-			</button>
-			<button type="button" class="btn btn-success" onclick="nuevaPartida()" data-mdb-dismiss="modal">EMPEZAR PARTIDA</button>
-			</div>
-		</div>
-		</div>
 		</div>
 	</div>
 
@@ -80,12 +80,13 @@
 					<!-- Tabs navs -->
 					<ul class="nav nav-tabs mb-3 me-auto mb-2 mb-lg-0" id="ex1" role="tablist">
 						<li class="nav-item" role="presentation">
-							<a class="nav-link active" id="ex1-tab-personajes" data-mdb-toggle="tab" href="#tab-personajes"
-								role="tab" aria-controls="tab-personajes" aria-selected="true">PERSONAJES</a>
+							<a class="nav-link active" id="ex1-tab-personajes" data-mdb-toggle="tab"
+								href="#tab-personajes" role="tab" aria-controls="tab-personajes"
+								aria-selected="true">PERSONAJES</a>
 						</li>
 						<li class="nav-item" role="presentation">
-							<a class="nav-link" id="ex1-tab-batalla" data-mdb-toggle="tab" href="#tab-batalla" role="tab"
-								aria-controls="tab-batalla" aria-selected="false">Simulador de batalla</a>
+							<a class="nav-link" id="ex1-tab-batalla" data-mdb-toggle="tab" href="#tab-batalla"
+								role="tab" aria-controls="tab-batalla" aria-selected="false">Simulador de batalla</a>
 						</li>
 					</ul>
 					<!-- Left links -->
@@ -106,19 +107,86 @@
 			<!-- Container wrapper -->
 		</nav>
 		<!-- Navbar -->
-		
-		
+
+
 		<div class="tab-content" style="background-color: #BCAAA4;" id="ex1-content">
-			<div class="tab-pane fade show active" id="tab-personajes" role="tabpanel" aria-labelledby="ex1-tab-personajes">
+			<div class="tab-pane fade show active" id="tab-personajes" role="tabpanel"
+				aria-labelledby="ex1-tab-personajes">
 				<div id="cards-personajes" class="row">
 				</div>
-				<button class="btn btn-primary" onclick='jugador.crearPersonaje()'>
+				<button class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#modal-crearpersonaje">
 					CREAR PERSONAJE
 				</button>
 				<div id="status"></div>
+
+				<!-- Modal -->
+				<div class="modal fade" id="modal-crearpersonaje" tabindex="-1"
+					aria-labelledby="modal-crearpersonajeLabel" aria-hidden="true" onkeypress="handleModalCrearPersonajeEnter(event)">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title">Crear personaje</h5>
+							</div>
+							<div class="modal-body">
+								<div class="form-outline">
+									<input type="text" id="input-nombrepersonaje"
+										class="form-control form-control-lg text-center" style='font-size:20px;' />
+									<label class="form-label" for="input-nombrepersonaje">Nombre</label>
+								</div>
+								<div class="container">
+									<div class="row">
+										<div class="col-md">
+											<div id="card-asesino" class="card shadow-2-strong"
+												onclick="seleccionDeClase('asesino')">
+												<a class="text-center" style='font-size:100px;'>&#127993;</a>
+												<div class="card-body">
+													<h5 class="card-title text-center">ASESINO</h5>
+													<p class="card-text text-center">
+														Es como el kho-i-nor
+													</p>
+												</div>
+											</div>
+										</div>
+										<div class="col-md">
+											<div id="card-demoledor" class="card shadow-2-strong"
+												onclick="seleccionDeClase('demoledor')">
+												<a class="text-center" style='font-size:100px;'>&#128170;</a>
+												<div class="card-body">
+													<h5 class="card-title text-center">DEMOLEDOR</h5>
+													<p class="card-text text-center">
+														Es grandote papota
+													</p>
+												</div>
+											</div>
+										</div>
+										<div class="col-md">
+											<div id="card-mago" class="card shadow-2-strong"
+												onclick="seleccionDeClase('mago')">
+												<a class="text-center" style='font-size:100px;'>&#128302;</a>
+												<div class="card-body">
+													<h5 class="card-title text-center">MAGO</h5>
+													<p class="card-text text-center">
+														Es como bam de tog
+													</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-light" data-mdb-dismiss="modal">
+									&#10060;
+								</button>
+								<button type="button" class="btn btn-success" onclick="jugador.crearPersonaje()"
+									data-mdb-dismiss="modal">CREAR</button>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 
-			
+
 			<div class="tab-pane fade" id="tab-batalla" role="tabpanel" aria-labelledby="ex1-tab-batalla">
 				Proximamente
 			</div>

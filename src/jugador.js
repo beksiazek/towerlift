@@ -6,30 +6,28 @@ class Jugador {
 
     crearPersonaje() {
         if (this.personajes.length < 4) {
-            let nombre = prompt("Ingrese el nombre de su personaje: ");
-            nombre = nombre.trim();
-            let clase;
-
-            while (
-                clase != "ASESINO" &&
-                clase != "DEMOLEDOR" &&
-                clase != "MAGO"
-            ) {
-                clase = prompt("Será un asesino, un demoledor o un mago?");
-                clase = clase.toUpperCase();
-            }
-
-            let nuevoPersonaje = this._crearPersonaje({nombre, clase});
+            let nombre = document.getElementById("input-nombrepersonaje").value;
+            let clase = claseSeleccionada;
+            let nuevoPersonaje = this._crearPersonaje({ nombre, clase });
 
             this.personajes.push(nuevoPersonaje);
 
             console.log("Se ha creado un nuevo ente.");
             mostrarPersonajes();
             nuevoPersonaje.status();
+
+            document
+                .getElementById("card-" + claseSeleccionada)
+                .classList.remove("border", "border-dark");
+            document.getElementById("input-nombrepersonaje").value = "";
         } else {
             alert(
                 "Ya llegó al límite de creación de personajes! Descarte uno actual antes de intentar crear otro."
             );
+            document
+                .getElementById("card-" + claseSeleccionada)
+                .classList.remove("border", "border-dark");
+            document.getElementById("input-nombrepersonaje").value = "";
         }
     }
 
@@ -48,19 +46,15 @@ class Jugador {
 
     cargarPersonajes(personajes) {
         let personaje;
-        for(let i=0; i<personajes.length; i++){
+        for (let i = 0; i < personajes.length; i++) {
             personaje = this._crearPersonaje(personajes[i]);
             jugador.personajes.push(personaje);
         }
     }
 
     eliminarPersonaje(i) {
-        alert(
-            jugador.personajes[i].nombre +
-                " fue descartado."
-        );
+        alert(jugador.personajes[i].nombre + " fue descartado.");
         jugador.personajes.splice(i, 1);
         mostrarPersonajes();
     }
-} 
-
+}
