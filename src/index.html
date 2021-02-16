@@ -36,8 +36,6 @@
 			</div>
 		</div>
 
-
-		<!-- Modal -->
 		<div class="modal fade" id="modal-apodo" tabindex="-1" aria-labelledby="modal-apodoLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -45,8 +43,8 @@
 						<h5 class="modal-title">Ingrese su apodo:</h5>
 					</div>
 					<div class="form-outline">
-						<input type="text" id="input-apodo" class="form-control form-control-lg"
-							style='font-size:30px;' onkeypress="handleModalNuevaPartidaEnter(event)" />
+						<input type="text" id="input-apodo" class="form-control form-control-lg" style='font-size:30px;'
+							onkeypress="handleModalNuevaPartidaEnter(event)" />
 						<label class="form-label" for="input-apodo">Apodo</label>
 					</div>
 					<div class="modal-footer">
@@ -114,14 +112,14 @@
 				aria-labelledby="ex1-tab-personajes">
 				<div id="cards-personajes" class="row">
 				</div>
-				<button class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#modal-crearpersonaje">
+				<button class="btn btn-primary" onclick="validacionCrearPersonaje()">
 					CREAR PERSONAJE
 				</button>
 				<div id="status"></div>
 
-				<!-- Modal -->
 				<div class="modal fade" id="modal-crearpersonaje" tabindex="-1"
-					aria-labelledby="modal-crearpersonajeLabel" aria-hidden="true" onkeypress="handleModalCrearPersonajeEnter(event)">
+					aria-labelledby="modal-crearpersonajeLabel" aria-hidden="true"
+					onkeypress="handleModalCrearPersonajeEnter(event)">
 					<div class="modal-dialog modal-lg">
 						<div class="modal-content">
 							<div class="modal-header">
@@ -180,6 +178,19 @@
 								</button>
 								<button type="button" class="btn btn-success" onclick="jugador.crearPersonaje()"
 									data-mdb-dismiss="modal">CREAR</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="modal fade" id="modal-limitedepersonajes" tabindex="-1" aria-labelledby="modal-limitedepersonajesLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-body">
+								<p>Ya llegó al límite de creación de personajes! Descarte uno actual antes de intentar crear otro.</p>
+								<button type="button" class="btn btn-light" data-mdb-dismiss="modal">
+									&#10060;
+								</button>
 							</div>
 						</div>
 					</div>

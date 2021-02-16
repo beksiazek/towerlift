@@ -1,5 +1,6 @@
 var jugador;
 var claseSeleccionada = null;
+
 //Separar funciones!!
 function nuevaPartida() {
     let id = document.getElementById("input-apodo").value;
@@ -83,22 +84,30 @@ function seleccionDeClase(clase) {
         .classList.add("border", "border-dark");
 }
 
-function hideModal(idModal){
+function hideModal(idModal) {
     let auxiliarModal = document.getElementById(idModal);
     let modal = mdb.Modal.getInstance(auxiliarModal);
     modal.hide();
 }
 
-function handleModalNuevaPartidaEnter(event){
-    if (event.which == 13){
+function handleModalNuevaPartidaEnter(event) {
+    if (event.which == 13) {
         nuevaPartida();
         hideModal("modal-apodo");
     }
 }
-function handleModalCrearPersonajeEnter(event){
-    if (event.which == 13){
+function handleModalCrearPersonajeEnter(event) {
+    if (event.which == 13) {
         jugador.crearPersonaje();
         hideModal("modal-crearpersonaje");
+    }
+}
+
+function validacionCrearPersonaje(){
+    if(jugador.personajes.length<4){
+        let modal = new mdb.Modal(document.getElementById("modal-crearpersonaje")).show();
+    }else{
+        let modal = new mdb.Modal(document.getElementById("modal-limitedepersonajes")).show();
     }
 }
 //new mdb.Modal(document.getElementById("modal-crearpersonaje")).show();
