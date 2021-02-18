@@ -21,9 +21,6 @@ class Jugador {
                 .classList.remove("border", "border-dark");
             document.getElementById("input-nombrepersonaje").value = "";
         } else {
-            alert(
-                "Ya llegó al límite de creación de personajes! Descarte uno actual antes de intentar crear otro."
-            );
             document
                 .getElementById("card-" + claseSeleccionada)
                 .classList.remove("border", "border-dark");

@@ -84,7 +84,7 @@
 						</li>
 						<li class="nav-item" role="presentation">
 							<a class="nav-link" id="ex1-tab-batalla" data-mdb-toggle="tab" href="#tab-batalla"
-								role="tab" aria-controls="tab-batalla" aria-selected="false">Simulador de batalla</a>
+								role="tab" aria-controls="tab-batalla" aria-selected="false" onclick="mostrarPersonajesParaBatalla()">Simulador de batalla</a>
 						</li>
 					</ul>
 					<!-- Left links -->
@@ -199,7 +199,47 @@
 
 
 			<div class="tab-pane fade" id="tab-batalla" role="tabpanel" aria-labelledby="ex1-tab-batalla">
-				Proximamente podrás luchar por tu sueño
+				<div id="cards-personajes-batalla" class="row">
+				</div>
+
+				<div class="modal fade" id="modal-batalla" tabindex="-1"
+					aria-labelledby="modal-batallaLabel" aria-hidden="true">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header d-flex justify-content-center">
+								<h5 class="modal-title">BATALLA</h5>
+							</div>
+							<div class="modal-body">
+								<div class="container">
+									<div class="row">
+										<div id='container-personaje1' class="col-md">
+
+										</div>
+										<div id='container-acciones' class="col-md text-center">
+											<button class="btn btn-sm btn-outline-dark btn-rounded" data-mdb-ripple-color="dark">ATAQUE BÁSICO</button>
+										</div>
+										<div id='container-personaje2' class="col-md">
+											<div id="card-personaje2" class="card shadow-2-strong">
+												<a class="text-center" style='font-size:100px;'>&#128302;</a>
+												<div class="card-body">
+													<h5 class="card-title text-center">MAGO</h5>
+													<p class="card-text text-center">
+														Es como bam de tog
+													</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-light" data-mdb-dismiss="modal">
+									&#10060; Finalizar simulación
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		

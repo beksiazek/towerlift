@@ -26,3 +26,4 @@ class Personaje {
         this.experienciaMaxima = this.experienciaMaxima + 25;
     }
 }
+

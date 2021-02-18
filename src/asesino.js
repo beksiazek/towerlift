@@ -16,7 +16,7 @@ class Asesino extends Personaje {
             this.experienciaMaxima = stats.experienciaMaxima;
             this.experienciaActual = stats.experienciaActual;
         }else{
-            this.ataque = 10;
+            this.ataque = 25;
             this.poder = 0;
             this.defensa = 5;
             this.agilidad = 10;
