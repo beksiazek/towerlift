@@ -176,13 +176,33 @@ function batallaVsIa(indicePersonaje) {
         }</a>
         <div class="card-body">
             <h5 class="card-title text-center">${batalla.clonPersonaje1.nombre}</h5>
-            <p class="card-text text-center">
+            <p id='p-vidaPj1' class="card-text text-center">
                 ${batalla.clonPersonaje1.vidaActual}/${batalla.clonPersonaje1.vidaMaxima}
             </p>
         </div>
     </div>`;
 
     document.getElementById("container-personaje1").innerHTML = card;
+
+    card =  `
+    <div id="card-personaje2" class="card shadow-2-strong">
+        <a class="text-center" style='font-size:100px;'>${
+            batalla.clonPersonaje2.clase == "ASESINO"
+                ? "&#127993;"
+                : batalla.clonPersonaje2.clase == "DEMOLEDOR"
+                ? "&#128170;"
+                : "&#128302;"
+        }</a>
+        <div class="card-body">
+            <h5 class="card-title text-center">${batalla.clonPersonaje2.nombre}</h5>
+            <p id='p-vidaPj2' class="card-text text-center">
+                ${batalla.clonPersonaje2.vidaActual}/${batalla.clonPersonaje2.vidaMaxima}
+            </p>
+        </div>
+    </div>`;
+
+    document.getElementById("container-personaje2").innerHTML = card;
+    
     showModal('modal-batalla');
 }
 

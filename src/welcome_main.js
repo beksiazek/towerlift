@@ -1,16 +1,16 @@
 $('#pills-tab-bienvenido').on('click', function (event) {
-    event.preventDefault()
-    $(this).tab('show')
+    event.preventDefault();
+    $(this).tab('show');
 })
 
 $('#pills-tab-introduccion').on('click', function (event) {
-    event.preventDefault()
-    $(this).tab('show')
+    event.preventDefault();
+    $(this).tab('show');
 })
 
 $('#pills-tab-info').on('click', function (event) {
-    event.preventDefault()
-    $(this).tab('show')
+    event.preventDefault();
+    $(this).tab('show');
 })
 
 $('#button-empezar').click(function(){
