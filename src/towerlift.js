@@ -37,17 +37,15 @@ function mostrarPersonajes() {
         cards += `
         <div class="col-6 col-md-3 col-lg-2">
             <div class="card shadow-2-strong hover-overlay">
-                <div class="bg-image">
-                    <span style='font-size:100px;'>${
-                        jugador.personajes[i].clase == "ASESINO"
-                            ? "&#127993;"
-                            : jugador.personajes[i].clase == "DEMOLEDOR"
-                            ? "&#128170;"
-                            : "&#128302;"
-                    }
-                    </span>
-                </div>
-                <div class="card-body hover-overlay">
+                <a class='text-center' style='font-size:100px;'>${
+                    jugador.personajes[i].clase == "ASESINO"
+                        ? "&#127993;"
+                        : jugador.personajes[i].clase == "DEMOLEDOR"
+                        ? "&#128170;"
+                        : "&#128302;"
+                }
+                </a>
+                <div class="card-body hover-overlay text-center">
                     <h5 class="card-title">${
                         jugador.personajes[i].nombre
                     }</h5>   
@@ -60,7 +58,7 @@ function mostrarPersonajes() {
                         class="mask" 
                         style="background: linear-gradient(45deg, rgba(29, 236, 197, 0.1), rgba(0, 0, 0, 0.1) 100%);">
                         <div class="text-center">
-                            <button class="btn btn-sm btn-outline-dark btn-rounded" data-mdb-ripple-color="dark" onclick='jugador.personajes[${i}].status()'>STATUS</button>
+                            <button class="btn btn-sm btn-outline-dark btn-rounded" data-mdb-ripple-color="dark">STATUS</button>
                             <button class="btn btn-sm btn-outline-dark btn-rounded" data-mdb-ripple-color="dark" onclick='jugador.eliminarPersonaje(${i})'>ELIMINAR</button>
                         </div>    
                     </div>
@@ -78,27 +76,24 @@ function mostrarPersonajesParaBatalla() {
         cards += `
         <div class="col-6 col-md-3 col-lg-2">
             <div class="card shadow-2-strong hover-overlay">
-                <div class="bg-image">
-                    <span style='font-size:100px;'>${
-                        jugador.personajes[i].clase == "ASESINO"
-                            ? "&#127993;"
-                            : jugador.personajes[i].clase == "DEMOLEDOR"
-                            ? "&#128170;"
-                            : "&#128302;"
-                    }
-                    </span>
-                </div>
-                <div class="card-body hover-overlay">
+                <a class='text-center' style='font-size:100px;'>${
+                    jugador.personajes[i].clase == "ASESINO"
+                        ? "&#127993;"
+                        : jugador.personajes[i].clase == "DEMOLEDOR"
+                        ? "&#128170;"
+                        : "&#128302;"
+                }
+                </a>
+                <div class="card-body hover-overlay text-center">
                     <h5 class="card-title">${
                         jugador.personajes[i].nombre
                     }</h5>   
                     <p class="card-text">
-                    ${jugador.personajes[i].clase} nvl.${
+                        ${jugador.personajes[i].clase} nvl.${
             jugador.personajes[i].nivel
         }
                     </p>
-                    <div
-                        class="mask" 
+                    <div class="mask" 
                         style="background: linear-gradient(45deg, rgba(29, 236, 197, 0.1), rgba(0, 0, 0, 0.1) 100%);">
                         <div class="text-center">
                             <button class="btn btn-sm btn-outline-dark btn-rounded" data-mdb-ripple-color="dark" onclick='batallaVsIa(${i})'>BATALLA vs IA</button>
@@ -147,17 +142,17 @@ function handleModalCrearPersonajeEnter(event) {
     }
 }
 
-function validacionCrearPersonaje(){
-    if(jugador.personajes.length<4){
+function validacionCrearPersonaje() {
+    if (jugador.personajes.length < 4) {
         showModal("modal-crearpersonaje");
-    }else{
+    } else {
         showModal("modal-limitedepersonajes");
     }
 }
 
 function crearAsesinoPruebaIa() {
-    let nombre = 'Asesino Virtual';
-    let clase = 'ASESINO';
+    let nombre = "Asesino Virtual";
+    let clase = "ASESINO";
     let personajeIa = jugador._crearPersonaje({ nombre, clase });
     return personajeIa;
 }
@@ -165,45 +160,53 @@ function crearAsesinoPruebaIa() {
 function batallaVsIa(indicePersonaje) {
     let personajeIa = crearAsesinoPruebaIa();
     batalla = new Batalla(jugador.personajes[indicePersonaje], personajeIa);
-    let  card =  `
+    let card = `
     <div id="card-personaje1" class="card shadow-2-strong">
         <a class="text-center" style='font-size:100px;'>${
-            batalla.clonPersonaje1.clase == "ASESINO"
+            batalla.clonPersonaje[0].clase == "ASESINO"
                 ? "&#127993;"
-                : batalla.clonPersonaje1.clase == "DEMOLEDOR"
+                : batalla.clonPersonaje[0].clase == "DEMOLEDOR"
                 ? "&#128170;"
                 : "&#128302;"
         }</a>
-        <div class="card-body">
-            <h5 class="card-title text-center">${batalla.clonPersonaje1.nombre}</h5>
-            <p id='p-vidaPj1' class="card-text text-center">
-                ${batalla.clonPersonaje1.vidaActual}/${batalla.clonPersonaje1.vidaMaxima}
+        <div class="card-body text-center">
+            <h5 class="card-title">${
+                batalla.clonPersonaje[0].nombre
+            }</h5>
+            <p id='p-vidaPj1' class="card-text">
+                ${batalla.clonPersonaje[0].vidaActual}/${
+        batalla.clonPersonaje[0].vidaMaxima
+    }
             </p>
         </div>
     </div>`;
 
     document.getElementById("container-personaje1").innerHTML = card;
 
-    card =  `
+    card = `
     <div id="card-personaje2" class="card shadow-2-strong">
         <a class="text-center" style='font-size:100px;'>${
-            batalla.clonPersonaje2.clase == "ASESINO"
+            batalla.clonPersonaje[1].clase == "ASESINO"
                 ? "&#127993;"
-                : batalla.clonPersonaje2.clase == "DEMOLEDOR"
+                : batalla.clonPersonaje[1].clase == "DEMOLEDOR"
                 ? "&#128170;"
                 : "&#128302;"
         }</a>
-        <div class="card-body">
-            <h5 class="card-title text-center">${batalla.clonPersonaje2.nombre}</h5>
-            <p id='p-vidaPj2' class="card-text text-center">
-                ${batalla.clonPersonaje2.vidaActual}/${batalla.clonPersonaje2.vidaMaxima}
+        <div class="card-body text-center">
+            <h5 class="card-titl">${
+                batalla.clonPersonaje[1].nombre
+            }</h5>
+            <p id='p-vidaPj2' class="card-text">
+                ${batalla.clonPersonaje[1].vidaActual}/${
+        batalla.clonPersonaje[1].vidaMaxima
+    }
             </p>
         </div>
     </div>`;
 
     document.getElementById("container-personaje2").innerHTML = card;
-    
-    showModal('modal-batalla');
+
+    showModal("modal-batalla");
 }
 
 /*function SubirNivel (){
