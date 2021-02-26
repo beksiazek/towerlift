@@ -20,6 +20,9 @@ class Personaje {
          <p>Agilidad:    ${this.agilidad}</p>
          </div>`;
     }
+
+    //aumentarExperiencia()
+    
     subirDeNivel() {
         this.nivel = this.nivel + 1;
         this.experienciaActual = 0;

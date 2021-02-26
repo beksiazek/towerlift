@@ -1,5 +1,6 @@
 class Batalla {
     constructor(personaje1, personaje2){
+        this.personaje = personaje1;
         this.clonPersonaje = [];
         
         let pjAsignAux = Object.assign({}, personaje1);
@@ -19,11 +20,13 @@ class Batalla {
         
         console.log("Turno del personaje " + (idPersonajeActivo+1));
         this.clonPersonaje[idPersonajeEnEspera].vidaActual = this.clonPersonaje[idPersonajeEnEspera].vidaActual - this.clonPersonaje[idPersonajeActivo].ataque;
-        
+        playAnimacionDanio(idPersonajeEnEspera+1);
+
         if(this.clonPersonaje[idPersonajeEnEspera].vidaActual <= 0){
             document.getElementById('msg-ganadorbatalla').innerHTML = `<h4 class='text-center'>El ganador de la batalla es ${this.clonPersonaje[idPersonajeActivo].nombre}!</h4>`;
             document.getElementById('msg-ganadorbatalla').style.display = 'inline';
             document.getElementById('body-modal-batalla').style.display = 'none';
+            //this.personaje.aumentarExperiencia();
             
         }else{
             let actualizacionDeVida = `${this.clonPersonaje[idPersonajeEnEspera].vidaActual}/${this.clonPersonaje[idPersonajeEnEspera].vidaMaxima}`;

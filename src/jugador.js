@@ -14,7 +14,6 @@ class Jugador {
 
             console.log("Se ha creado un nuevo ente.");
             mostrarPersonajes();
-            nuevoPersonaje.status();
 
             document
                 .getElementById("card-" + claseSeleccionada)

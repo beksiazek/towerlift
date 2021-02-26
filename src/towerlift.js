@@ -1,6 +1,7 @@
 var jugador;
 var claseSeleccionada = null;
 var batalla;
+var elementoAnimado = null;
 
 //Separar funciones!!
 function nuevaPartida() {
@@ -32,8 +33,11 @@ function cargarPartida() {
 }
 
 function mostrarPersonajes() {
+    let porcentajeExperiencia;
     let cards = ``;
     for (i = 0; i < jugador.personajes.length; i++) {
+        porcentajeExperiencia = 
+        (jugador.personajes[i].experienciaActual/jugador.personajes[i].experienciaMaxima) * 100;
         cards += `
         <div class="col-6 col-md-3 col-lg-2">
             <div class="card shadow-2-strong hover-overlay">
@@ -54,6 +58,14 @@ function mostrarPersonajes() {
             jugador.personajes[i].nivel
         }
                     </p>
+                    <div class="progress" style='height: 15px'>
+                        <div
+                            id='progress-experiencia'
+                            class="progress-bar"
+                            role="progressbar"
+                            style="width: ${porcentajeExperiencia}%"
+                        >xp: ${jugador.personajes[i].experienciaActual}/${jugador.personajes[i].experienciaMaxima}</div>
+                        </div>
                     <div
                         class="mask" 
                         style="background: linear-gradient(45deg, rgba(29, 236, 197, 0.1), rgba(0, 0, 0, 0.1) 100%);">
@@ -141,6 +153,14 @@ function handleModalCrearPersonajeEnter(event) {
         hideModal("modal-crearpersonaje");
     }
 }
+
+function playAnimacionDanio(idCard) {
+    if(elementoAnimado != null){
+        elementoAnimado.classList.remove('shake');
+    }
+    elementoAnimado = document.getElementById('card-personaje'+idCard);
+    elementoAnimado.classList.add('shake');
+  }
 
 function validacionCrearPersonaje() {
     if (jugador.personajes.length < 4) {
