@@ -13,6 +13,7 @@ class Jugador {
             this.personajes.push(nuevoPersonaje);
 
             console.log("Se ha creado un nuevo ente.");
+            nuevoPersonaje.status();
             mostrarPersonajes();
 
             document
@@ -49,7 +50,21 @@ class Jugador {
     }
 
     eliminarPersonaje(i) {
-        alert(jugador.personajes[i].nombre + " fue descartado.");
+        document.getElementById('modal-confirmacion').innerHTML = `
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p>${jugador.personajes[i].nombre} ha sido descartado.</p>
+                    </div>
+                    <div class='modal-footer'>
+                        <button type="button" class="btn btn-light" data-mdb-dismiss="modal">
+                            &#10004;
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        showModal('modal-confirmacion');
         jugador.personajes.splice(i, 1);
         mostrarPersonajes();
     }

@@ -14,7 +14,21 @@ function nuevaPartida() {
 
 function guardarPartida() {
     localStorage.setItem("jugador", JSON.stringify(jugador));
-    alert("Su partida ha sido guardada!");
+    document.getElementById('modal-confirmacion').innerHTML = `
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>La partida se ha guardado correctamente!</p>
+                </div>
+                <div class='modal-footer'>
+                    <button type="button" class="btn btn-light" data-mdb-dismiss="modal">
+                        &#10004;
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+    showModal('modal-confirmacion');
 }
 
 function cargarPartida() {
@@ -27,8 +41,38 @@ function cargarPartida() {
             jugador.nombreJugador;
         document.getElementById("main-container").hidden = false;
         mostrarPersonajes();
+
+        document.getElementById('modal-confirmacion').innerHTML = `
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p>La partida se ha cargado correctamente!</p>
+                    </div>
+                    <div class='modal-footer'>
+                        <button type="button" class="btn btn-light" data-mdb-dismiss="modal">
+                            &#10004;
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        showModal('modal-confirmacion');
     } else {
-        alert("No hay ninguna partida guardada!");
+        document.getElementById('modal-confirmacion').innerHTML = `
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p>No hay ninguna partida guardada!</p>
+                    </div>
+                    <div class='modal-footer'>
+                        <button type="button" class="btn btn-light" data-mdb-dismiss="modal">
+                            &#10060;
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        showModal('modal-confirmacion');
     }
 }
 
@@ -70,8 +114,8 @@ function mostrarPersonajes() {
                         class="mask" 
                         style="background: linear-gradient(45deg, rgba(29, 236, 197, 0.1), rgba(0, 0, 0, 0.1) 100%);">
                         <div class="text-center">
-                            <button class="btn btn-sm btn-outline-dark btn-rounded" data-mdb-ripple-color="dark">STATUS</button>
-                            <button class="btn btn-sm btn-outline-dark btn-rounded" data-mdb-ripple-color="dark" onclick='jugador.eliminarPersonaje(${i})'>ELIMINAR</button>
+                            <button class="btn btn-sm btn-outline-dark btn-rounded" data-mdb-ripple-color="dark" onclick='jugador.personajes[${i}].status()'>STATUS</button>
+                            <button class="btn btn-sm btn-outline-dark btn-rounded" data-mdb-ripple-color="dark" onclick='validacionEliminarPersonaje(${i})'>ELIMINAR</button>
                         </div>    
                     </div>
                 </div>
@@ -170,6 +214,79 @@ function validacionCrearPersonaje() {
     }
 }
 
+function validacionEliminarPersonaje(indicePersonaje) {
+    document.getElementById('modal-confirmacion').innerHTML = `
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Está seguro de que quiere eliminar a ${jugador.personajes[indicePersonaje].nombre}?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-mdb-dismiss="modal">
+                        &#10060;
+                    </button>
+                    <button type="button" class="btn btn-danger" onclick="jugador.eliminarPersonaje(${indicePersonaje})"
+                        data-mdb-dismiss="modal">ELIMINAR</button>
+                </div>
+            </div>
+        </div>
+    `;
+    showModal('modal-confirmacion');
+}
+
+function validacionGuardarPartida() {
+    document.getElementById('modal-confirmacion').innerHTML = `
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class='modal-header'>
+                <h5>Guardar partida</h5>
+            </div>
+            <div class="modal-body">
+                <p>Está seguro de que quiere guardar la partida? Los datos de personajes guardados anteriormente se sobreescribirán.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-mdb-dismiss="modal">
+                    &#10060;
+                </button>
+                <button type="button" class="btn btn-danger" onclick="guardarPartida()"
+                    data-mdb-dismiss="modal">GUARDAR</button>
+            </div>
+        </div>
+    </div>
+    `;
+    showModal('modal-confirmacion');
+}
+
+function validacionCargarPartida() {
+    document.getElementById('modal-confirmacion').innerHTML = `
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class='modal-header'>
+                <h5>Cargar partida</h5>
+            </div>
+            <div class="modal-body">
+                <p>Está seguro de que quiere cargar una partida? Los datos de personajes no guardados se perderán.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-mdb-dismiss="modal">
+                    &#10060;
+                </button>
+                <button type="button" class="btn btn-danger" onclick="cargarPartida()"
+                    data-mdb-dismiss="modal">CARGAR</button>
+            </div>
+        </div>
+    </div>
+    `;
+    showModal('modal-confirmacion');
+}
+
+function mensajeSubirDeNivel(nombre, nivel) {
+    document.getElementById('msg-subirdenivel').innerHTML = `
+        <p>${nombre} subió a nivel ${nivel}.</p>
+    `;
+    showModal('modal-subirdenivel');
+}
+
 function crearAsesinoPruebaIa() {
     let nombre = "Asesino Virtual";
     let clase = "ASESINO";
@@ -229,6 +346,3 @@ function batallaVsIa(indicePersonaje) {
     showModal("modal-batalla");
 }
 
-/*function SubirNivel (){
-    jugador.listaDePersonajes[0].subirDeNivel();
-}*/

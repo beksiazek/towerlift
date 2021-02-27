@@ -26,7 +26,6 @@ class Batalla {
             document.getElementById('msg-ganadorbatalla').innerHTML = `<h4 class='text-center'>El ganador de la batalla es ${this.clonPersonaje[idPersonajeActivo].nombre}!</h4>`;
             document.getElementById('msg-ganadorbatalla').style.display = 'inline';
             document.getElementById('body-modal-batalla').style.display = 'none';
-            //this.personaje.aumentarExperiencia();
             
         }else{
             let actualizacionDeVida = `${this.clonPersonaje[idPersonajeEnEspera].vidaActual}/${this.clonPersonaje[idPersonajeEnEspera].vidaMaxima}`;
