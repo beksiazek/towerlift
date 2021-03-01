@@ -1,3 +1,21 @@
+var apiKey = "$2b$10$fY2rCofm0HwEYRfC5TpXpuAysLMAX4nI8KPFmQHe0wdgfIDhBWaH.";
+var imagenes;
+
+$.ajax({
+    url: 'https://api.jsonbin.io/b/603c7dd50866664b108594ca/1',
+    type: 'GET',
+    dataType: 'json',
+    beforeSend: function(rHeader) {
+      $("#imagelodaing").show();
+      rHeader.setRequestHeader("secret-key", "$2b$10$fY2rCofm0HwEYRfC5TpXpuAysLMAX4nI8KPFmQHe0wdgfIDhBWaH.");
+    },
+    success: function(response) {
+        imagenes = response;
+        $("#pills-introduccion > img").attr("src", imagenes[0].urlimg);
+        $("#pills-info > img").attr("src", imagenes[1].urlimg);
+    }
+})
+
 $('#pills-tab-bienvenido').on('click', function (event) {
     event.preventDefault();
     $(this).tab('show');
@@ -25,5 +43,5 @@ $(document).ready(function(){
 });
 
 $('body').css('background-image',
- 'url("https://cdna.artstation.com/p/assets/images/images/024/829/406/large/nawid-stettner-game.jpg?1583682873")');
+ 'url("./background.jpg")');
 $('body').css('overflow', 'hidden');
