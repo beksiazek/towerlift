@@ -1,9 +1,13 @@
-var jugador;
+var jugador = new Jugador('init');
+var listaPersonajesIa = [];
 var claseSeleccionada = null;
 var batalla;
 var elementoAnimado = null;
 
-//Separar funciones!!
+fetch("https://api.jsonbin.io/b/603c7cbe81087a6a8b93205f/1")
+    .then(response => response.json())
+    .then(Ia => importarPersonajesIa(Ia));
+
 function nuevaPartida() {
     let id = document.getElementById("input-apodo").value;
     jugador = new Jugador(id);
@@ -73,6 +77,14 @@ function cargarPartida() {
             </div>
         `;
         showModal('modal-confirmacion');
+    }
+}
+
+function importarPersonajesIa(personajes) {
+    let personaje;
+    for (let i = 0; i < personajes.length; i++) {
+        personaje = jugador._crearPersonaje(personajes[i]);
+        listaPersonajesIa.push(personaje);
     }
 }
 
@@ -191,6 +203,7 @@ function handleModalNuevaPartidaEnter(event) {
         hideModal("modal-apodo");
     }
 }
+
 function handleModalCrearPersonajeEnter(event) {
     if (event.which == 13) {
         jugador.crearPersonaje();
@@ -204,7 +217,7 @@ function playAnimacionDanio(idCard) {
     }
     elementoAnimado = document.getElementById('card-personaje'+idCard);
     elementoAnimado.classList.add('shake');
-  }
+}
 
 function validacionCrearPersonaje() {
     if (jugador.personajes.length < 4) {
@@ -287,16 +300,9 @@ function mensajeSubirDeNivel(nombre, nivel) {
     showModal('modal-subirdenivel');
 }
 
-function crearAsesinoPruebaIa() {
-    let nombre = "Asesino Virtual";
-    let clase = "ASESINO";
-    let personajeIa = jugador._crearPersonaje({ nombre, clase });
-    return personajeIa;
-}
-
 function batallaVsIa(indicePersonaje) {
-    let personajeIa = crearAsesinoPruebaIa();
-    batalla = new Batalla(jugador.personajes[indicePersonaje], personajeIa);
+    //let personajeIa = listaPersonajesIa[0];
+    batalla = new Batalla(jugador.personajes[indicePersonaje], listaPersonajesIa[0]);
     let card = `
     <div id="card-personaje1" class="card shadow-2-strong">
         <a class="text-center" style='font-size:100px;'>${

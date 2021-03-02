@@ -11,8 +11,8 @@ $.ajax({
     },
     success: function(response) {
         imagenes = response;
-        $("#pills-introduccion > img").attr("src", imagenes[0].urlimg);
-        $("#pills-info > img").attr("src", imagenes[1].urlimg);
+        $("#img-introduccion").attr("src", imagenes[0].urlimg);
+        $("#img-info").attr("src", imagenes[1].urlimg);
     }
 })
 
