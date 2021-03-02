@@ -301,7 +301,6 @@ function mensajeSubirDeNivel(nombre, nivel) {
 }
 
 function batallaVsIa(indicePersonaje) {
-    //let personajeIa = listaPersonajesIa[0];
     batalla = new Batalla(jugador.personajes[indicePersonaje], listaPersonajesIa[0]);
     let card = `
     <div id="card-personaje1" class="card shadow-2-strong">
