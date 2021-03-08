@@ -9,7 +9,7 @@ class Batalla {
         pjAsignAux = Object.assign({}, personaje2);
         this.clonPersonaje.push(pjAsignAux);
         
-        this.turn = false;
+        this.turn = Boolean(Date.now()%2);
     }
 
     ataque(){
@@ -26,6 +26,7 @@ class Batalla {
             document.getElementById('msg-ganadorbatalla').innerHTML = `<h4 class='text-center'>El ganador de la batalla es ${this.clonPersonaje[idPersonajeActivo].nombre}!</h4>`;
             document.getElementById('msg-ganadorbatalla').style.display = 'inline';
             document.getElementById('body-modal-batalla').style.display = 'none';
+            document.getElementById('button-finalizarsimulacion').onclick= function () { batalla.resetModal(); batalla.personaje.aumentarExperiencia(); };
             
         }else{
             let actualizacionDeVida = `${this.clonPersonaje[idPersonajeEnEspera].vidaActual}/${this.clonPersonaje[idPersonajeEnEspera].vidaMaxima}`;
@@ -33,6 +34,58 @@ class Batalla {
             document.getElementById(idActualizacionDeVida).innerHTML = actualizacionDeVida;
         }
 
+        this.turn = !this.turn;
+    }
+
+    ataqueEspecial() {
+        console.log(this.turn);
+
+        let idPersonajeActivo = Number(this.turn);
+        let idPersonajeEnEspera = Number(!this.turn);
+        
+        console.log("Turno del personaje " + (idPersonajeActivo+1));
+
+        let clase = this.clonPersonaje[idPersonajeActivo].clase;
+
+        switch (clase) {
+            case 'ASESINO':
+                this.clonPersonaje[idPersonajeEnEspera].vidaActual = this.clonPersonaje[idPersonajeEnEspera].vidaActual - (this.clonPersonaje[idPersonajeActivo].ataque * 1.5);
+            break;
+            
+            case 'DEMOLEDOR':
+                this.clonPersonaje[idPersonajeEnEspera].vidaActual = this.clonPersonaje[idPersonajeEnEspera].vidaActual - this.clonPersonaje[idPersonajeActivo].ataque;
+                let plusDeVida = 5 * (1 + (this.clonPersonaje[idPersonajeActivo].nivel / 10));
+                console.log(plusDeVida);
+                console.log(this.clonPersonaje[idPersonajeActivo].vidaActual = this.clonPersonaje[idPersonajeActivo].vidaActual + plusDeVida);
+            break;
+
+            case 'MAGO':
+                let danioMagico = this.clonPersonaje[idPersonajeActivo].poder * (1 + (this.clonPersonaje[idPersonajeActivo].nivel / 5));
+                this.clonPersonaje[idPersonajeEnEspera].vidaActual = this.clonPersonaje[idPersonajeEnEspera].vidaActual - this.clonPersonaje[idPersonajeActivo].ataque -danioMagico;
+            break;     
+        } 
+            
+        playAnimacionDanio(idPersonajeEnEspera+1);
+
+        if(this.clonPersonaje[idPersonajeEnEspera].vidaActual <= 0){
+            document.getElementById('msg-ganadorbatalla').innerHTML = `<h4 class='text-center'>El ganador de la batalla es ${this.clonPersonaje[idPersonajeActivo].nombre}!</h4>`;
+            document.getElementById('msg-ganadorbatalla').style.display = 'inline';
+            document.getElementById('body-modal-batalla').style.display = 'none';
+            document.getElementById('button-finalizarsimulacion').onclick= function () { batalla.resetModal(); batalla.personaje.aumentarExperiencia(); };
+            
+        }else{
+            for(let i = 0; i<=1; i++){
+                let actualizacionDeVida = `${(this.clonPersonaje[i].vidaActual).toFixed(1)}/${this.clonPersonaje[i].vidaMaxima}`;
+                let idActualizacionDeVida = 'p-vidaPj'+ (i+1);
+                document.getElementById(idActualizacionDeVida).innerHTML = actualizacionDeVida;
+            }
+        }
+
+        this.turn = !this.turn;
+    }
+
+    pasarTurno(){
+        elementoAnimado.classList.remove('shake');
         this.turn = !this.turn;
     }
 

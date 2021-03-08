@@ -34,8 +34,12 @@ class Personaje {
 
     aumentarExperiencia() { 
         this.experienciaActual += 25;
+        mensajeExperienciaObtenida(this.nombre);
         if(this.experienciaActual >= this.experienciaMaxima){
             this.subirDeNivel();
+            let nombre = this.nombre;
+            let nivel = this.nivel;
+            document.getElementById('button-dismissexperiencia').onclick = function () { mensajeSubirDeNivel(nombre, nivel); };
         }
     }
     
@@ -43,7 +47,6 @@ class Personaje {
         this.nivel = this.nivel + 1;
         this.experienciaActual = 0;
         this.experienciaMaxima = this.experienciaMaxima + 25;
-        mensajeSubirDeNivel(this.nombre, this.nivel);
     }
 }
 

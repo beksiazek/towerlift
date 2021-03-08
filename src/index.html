@@ -142,14 +142,12 @@
 								onclick="mostrarPersonajesParaBatalla()">Simulador de batalla</a>
 						</li>
 					</ul>
-					<!-- Left links -->
 
-					<!-- Search form -->
-					<button class="btn btn-outline-primary" type="button" data-mdb-ripple-color="dark"
+					<button class="btn btn-outline-primary" style="margin-right: 2px;" type="button" data-mdb-ripple-color="dark"
 						onclick='validacionCargarPartida()'>
 						CARGAR
 					</button>
-					<button class="btn btn-outline-primary" type="button" data-mdb-ripple-color="dark"
+					<button class="btn btn-outline-primary" style="margin-left: 2px;" type="button" data-mdb-ripple-color="dark"
 						onclick='validacionGuardarPartida()'>
 						GUARDAR
 					</button>
@@ -184,7 +182,7 @@
 							<div class="modal-body">
 								<div class="form-outline">
 									<input type="text" id="input-nombrepersonaje"
-										class="form-control form-control-lg text-center" style='font-size:20px;' />
+										class="form-control form-control-lg text-center" style='font-size:30px;' />
 									<label class="form-label" for="input-nombrepersonaje">Nombre</label>
 								</div>
 								<div class="container">
@@ -229,7 +227,7 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-light" data-mdb-dismiss="modal">
+								<button type="button" class="btn btn-light" data-mdb-dismiss="modal" onclick="limpiarModalCreacionPersonaje()">
 									&#10060;
 								</button>
 								<button type="button" class="btn btn-success" onclick="jugador.crearPersonaje()"
@@ -295,10 +293,14 @@
 										<div id='container-personaje1' class="col-md">
 
 										</div>
-										<div id='container-acciones' class="col-md text-center">
+										<div id='container-acciones' class="col-md d-grid gap-2 col-6 mx-auto">
 											<button class="btn btn-sm btn-outline-dark btn-rounded"
 												data-mdb-ripple-color="dark" onclick="batalla.ataque()">ATAQUE
 												BÁSICO</button>
+											<button class="btn btn-sm btn-outline-dark btn-rounded"
+												data-mdb-ripple-color="dark" onclick="batalla.ataqueEspecial()">ATAQUE ESPECIAL</button>
+											<button class="btn btn-sm btn-outline-dark btn-rounded"
+												data-mdb-ripple-color="dark" onclick="batalla.pasarTurno()">PASAR</button>
 										</div>
 										<div id='container-personaje2' class="col-md">
 
@@ -307,14 +309,33 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-light" data-mdb-dismiss="modal"
-									onclick='batalla.resetModal(), batalla.personaje.aumentarExperiencia()'>
+								<button id="button-finalizarsimulacion" type="button" class="btn btn-light" data-mdb-dismiss="modal"
+									onclick='batalla.resetModal()'>
 									&#10060; Finalizar simulación
 								</button>
 							</div>
 						</div>
 					</div>
 				</div>
+
+				<div class="modal fade" id="modal-xpobtenida" tabindex="-1"
+				aria-labelledby="modal-xpobtenidaLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class='modal-header'>
+								<h5>Felicitaciones!</h5>
+							</div>
+							<div id="msg-xpobtenida" class="modal-body">
+
+							</div>
+							<div class="modal-footer">
+								<button id="button-dismissexperiencia" type="button" class="btn btn-success"
+								data-mdb-dismiss="modal">&#10004;</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
 
 				<div class="modal fade" id="modal-subirdenivel" tabindex="-1"
 				aria-labelledby="modal-subirdenivelLabel" aria-hidden="true">
@@ -336,13 +357,13 @@
 
 			</div>
 		</div>
-	
-		<div class="modal fade" id="modal-confirmacion" tabindex="-1"
-			aria-labelledby="modal-confirmacionLabel" aria-hidden="true">
-
-		</div>
+	</div>
+		
+	<div class="modal fade" id="modal-confirmacion" tabindex="-1"
+	aria-labelledby="modal-confirmacionLabel" aria-hidden="true">
 
 	</div>
+
 </body>
 
 </html>

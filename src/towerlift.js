@@ -10,10 +10,28 @@ fetch("https://api.jsonbin.io/b/603c7cbe81087a6a8b93205f/1")
 
 function nuevaPartida() {
     let id = document.getElementById("input-apodo").value;
-    jugador = new Jugador(id);
-    document.getElementById("empezarpartida-container").hidden = true;
-    document.getElementById("player-name").innerHTML = id;
-    document.getElementById("main-container").hidden = false;
+    if(id != ""){
+        jugador = new Jugador(id);
+        document.getElementById("empezarpartida-container").hidden = true;
+        document.getElementById("player-name").innerHTML = id;
+        document.getElementById("main-container").hidden = false;
+    }else{
+        document.getElementById('modal-confirmacion').innerHTML = `
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Ingrese un apodo de jugador!</p>
+                </div>
+                <div class='modal-footer'>
+                    <button type="button" class="btn btn-light" data-mdb-dismiss="modal" onclick="showModal('modal-apodo')">
+                        &#10060;
+                    </button>
+                </div>
+            </div>
+        </div>
+        `;
+        showModal('modal-confirmacion');
+    }    
 }
 
 function guardarPartida() {
@@ -293,12 +311,31 @@ function validacionCargarPartida() {
     showModal('modal-confirmacion');
 }
 
+function mensajeExperienciaObtenida(nombre) {
+    document.getElementById('msg-xpobtenida').innerHTML = `
+        <p>${nombre} adquirió 25 pts. de experiencia!</p>
+    `;
+    showModal('modal-xpobtenida');
+    document.getElementById('button-finalizarsimulacion').onclick=
+        function () { batalla.resetModal(); };
+}
+
 function mensajeSubirDeNivel(nombre, nivel) {
     document.getElementById('msg-subirdenivel').innerHTML = `
         <p>${nombre} subió a nivel ${nivel}.</p>
     `;
     showModal('modal-subirdenivel');
+    document.getElementById('button-dismissexperiencia').onclick = null;
 }
+
+function limpiarModalCreacionPersonaje() {
+    document
+        .getElementById("card-" + claseSeleccionada)
+        .classList.remove("border", "border-dark");
+    claseSeleccionada = null;
+    document.getElementById("input-nombrepersonaje").value = "";
+}
+
 
 function batallaVsIa(indicePersonaje) {
     batalla = new Batalla(jugador.personajes[indicePersonaje], listaPersonajesIa[0]);

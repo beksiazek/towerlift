@@ -30,6 +30,7 @@ class Asesino extends Personaje {
             this.experienciaActual = 0;
         }  
     }
+
     subirDeNivel() {
         super.subirDeNivel();
         this.ataque = this.ataque + 2;

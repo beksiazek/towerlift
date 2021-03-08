@@ -5,26 +5,52 @@ class Jugador {
     }
 
     crearPersonaje() {
-        if (this.personajes.length < 4) {
-            let nombre = document.getElementById("input-nombrepersonaje").value;
+        let nombre = document.getElementById("input-nombrepersonaje").value;
+
+        if (nombre != "") {
             let clase = claseSeleccionada;
-            let nuevoPersonaje = this._crearPersonaje({ nombre, clase });
+            if (clase != null) {
+                let nuevoPersonaje = this._crearPersonaje({ nombre, clase });
 
-            this.personajes.push(nuevoPersonaje);
+                this.personajes.push(nuevoPersonaje);
 
-            console.log("Se ha creado un nuevo ente.");
-            nuevoPersonaje.status();
-            mostrarPersonajes();
-
-            document
-                .getElementById("card-" + claseSeleccionada)
-                .classList.remove("border", "border-dark");
-            document.getElementById("input-nombrepersonaje").value = "";
+                console.log("Se ha creado un nuevo ente.");
+                nuevoPersonaje.status();
+                mostrarPersonajes();
+                limpiarModalCreacionPersonaje();
+            } else {
+                document.getElementById("modal-confirmacion").innerHTML = `
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <p>Seleccione una clase!</p>
+                        </div>
+                        <div class='modal-footer'>
+                            <button type="button" class="btn btn-light" data-mdb-dismiss="modal" onclick="showModal('modal-crearpersonaje')">
+                                &#10060;
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                `;
+                showModal("modal-confirmacion");
+            }
         } else {
-            document
-                .getElementById("card-" + claseSeleccionada)
-                .classList.remove("border", "border-dark");
-            document.getElementById("input-nombrepersonaje").value = "";
+            document.getElementById("modal-confirmacion").innerHTML = `
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p>Ingrese un nombre para el personaje!</p>
+                    </div>
+                    <div class='modal-footer'>
+                        <button type="button" class="btn btn-light" data-mdb-dismiss="modal" onclick="showModal('modal-crearpersonaje')">
+                            &#10060;
+                        </button>
+                    </div>
+                </div>
+            </div>
+            `;
+            showModal("modal-confirmacion");
         }
     }
 
@@ -50,7 +76,7 @@ class Jugador {
     }
 
     eliminarPersonaje(i) {
-        document.getElementById('modal-confirmacion').innerHTML = `
+        document.getElementById("modal-confirmacion").innerHTML = `
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body">
@@ -64,7 +90,7 @@ class Jugador {
                 </div>
             </div>
         `;
-        showModal('modal-confirmacion');
+        showModal("modal-confirmacion");
         jugador.personajes.splice(i, 1);
         mostrarPersonajes();
     }
