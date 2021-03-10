@@ -2,7 +2,7 @@ var jugador = new Jugador('init');
 var listaPersonajesIa = [];
 var claseSeleccionada = null;
 var batalla;
-var elementoAnimado = null;
+var elementoAnimado = [null, null];
 
 fetch("https://api.jsonbin.io/b/603c7cbe81087a6a8b93205f/1")
     .then(response => response.json())
@@ -230,11 +230,42 @@ function handleModalCrearPersonajeEnter(event) {
 }
 
 function playAnimacionDanio(idCard) {
-    if(elementoAnimado != null){
-        elementoAnimado.classList.remove('shake');
+    if(elementoAnimado[idCard-1] != null){
+        elementoAnimado[idCard-1].classList.remove('shake');
+        elementoAnimado[idCard-1].classList.remove('greenflash');
+        elementoAnimado[idCard-1].classList.remove('purpleflash');
+        elementoAnimado[idCard-1].classList.remove('yellowflash');
+        void elementoAnimado[idCard-1].offsetWidth;
     }
-    elementoAnimado = document.getElementById('card-personaje'+idCard);
-    elementoAnimado.classList.add('shake');
+    elementoAnimado[idCard-1] = document.getElementById('card-personaje'+idCard);
+    elementoAnimado[idCard-1].classList.add('shake');
+}
+
+function playAnimacionCura(idCard) {
+    if(elementoAnimado[idCard-1] != null){
+        elementoAnimado[idCard-1].classList.remove('greenflash');
+        void elementoAnimado[idCard-1].offsetWidth;
+    }
+    elementoAnimado[idCard-1] = document.getElementById('card-personaje'+idCard);
+    elementoAnimado[idCard-1].classList.add('greenflash');
+}
+
+function playAnimacionLetal(idCard) {
+    if(elementoAnimado[idCard-1] != null){
+        elementoAnimado[idCard-1].classList.remove('purpleflash');
+        void elementoAnimado[idCard-1].offsetWidth;
+    }
+    elementoAnimado[idCard-1] = document.getElementById('card-personaje'+idCard);
+    elementoAnimado[idCard-1].classList.add('purpleflash');
+}
+
+function playAnimacionMagia(idCard) {
+    if(elementoAnimado[idCard-1] != null){
+        elementoAnimado[idCard-1].classList.remove('yellowflash');
+        void elementoAnimado[idCard-1].offsetWidth;
+    }
+    elementoAnimado[idCard-1] = document.getElementById('card-personaje'+idCard);
+    elementoAnimado[idCard-1].classList.add('yellowflash');
 }
 
 function validacionCrearPersonaje() {

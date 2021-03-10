@@ -20,8 +20,8 @@ class Demoledor extends Personaje {
             this.poder = 0;
             this.defensa = 10;
             this.agilidad = 4;
-            this.vidaMaxima = 140;
-            this.vidaActual = 140;
+            this.vidaMaxima = 120;
+            this.vidaActual = 120;
             this.estaminaMaxima = 50;
             this.estaminaActual = 50;
             this.manaMaximo = 0;

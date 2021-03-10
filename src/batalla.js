@@ -19,7 +19,8 @@ class Batalla {
         let idPersonajeEnEspera = Number(!this.turn);
         
         console.log("Turno del personaje " + (idPersonajeActivo+1));
-        this.clonPersonaje[idPersonajeEnEspera].vidaActual = this.clonPersonaje[idPersonajeEnEspera].vidaActual - this.clonPersonaje[idPersonajeActivo].ataque;
+        this.clonPersonaje[idPersonajeEnEspera].vidaActual = this.clonPersonaje[idPersonajeEnEspera].vidaActual -
+         (this.clonPersonaje[idPersonajeActivo].ataque - this.clonPersonaje[idPersonajeEnEspera].defensa);
         playAnimacionDanio(idPersonajeEnEspera+1);
 
         if(this.clonPersonaje[idPersonajeEnEspera].vidaActual <= 0){
@@ -49,19 +50,25 @@ class Batalla {
 
         switch (clase) {
             case 'ASESINO':
-                this.clonPersonaje[idPersonajeEnEspera].vidaActual = this.clonPersonaje[idPersonajeEnEspera].vidaActual - (this.clonPersonaje[idPersonajeActivo].ataque * 1.5);
+                this.clonPersonaje[idPersonajeEnEspera].vidaActual = this.clonPersonaje[idPersonajeEnEspera].vidaActual -
+                 (this.clonPersonaje[idPersonajeActivo].ataque * 1.5 - this.clonPersonaje[idPersonajeEnEspera].defensa);
+                 playAnimacionLetal(idPersonajeActivo+1);
             break;
             
             case 'DEMOLEDOR':
-                this.clonPersonaje[idPersonajeEnEspera].vidaActual = this.clonPersonaje[idPersonajeEnEspera].vidaActual - this.clonPersonaje[idPersonajeActivo].ataque;
+                this.clonPersonaje[idPersonajeEnEspera].vidaActual = this.clonPersonaje[idPersonajeEnEspera].vidaActual -
+                 (this.clonPersonaje[idPersonajeActivo].ataque - this.clonPersonaje[idPersonajeEnEspera].defensa);
                 let plusDeVida = 5 * (1 + (this.clonPersonaje[idPersonajeActivo].nivel / 10));
                 console.log(plusDeVida);
                 console.log(this.clonPersonaje[idPersonajeActivo].vidaActual = this.clonPersonaje[idPersonajeActivo].vidaActual + plusDeVida);
+                playAnimacionCura(idPersonajeActivo+1);    
             break;
 
             case 'MAGO':
                 let danioMagico = this.clonPersonaje[idPersonajeActivo].poder * (1 + (this.clonPersonaje[idPersonajeActivo].nivel / 5));
-                this.clonPersonaje[idPersonajeEnEspera].vidaActual = this.clonPersonaje[idPersonajeEnEspera].vidaActual - this.clonPersonaje[idPersonajeActivo].ataque -danioMagico;
+                this.clonPersonaje[idPersonajeEnEspera].vidaActual = this.clonPersonaje[idPersonajeEnEspera].vidaActual -
+                 (this.clonPersonaje[idPersonajeActivo].ataque + danioMagico - this.clonPersonaje[idPersonajeEnEspera].defensa);
+                 playAnimacionMagia(idPersonajeActivo+1);
             break;     
         } 
             

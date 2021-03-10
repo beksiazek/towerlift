@@ -57,6 +57,39 @@
 				transform: translate(1px, -2px) rotate(-1deg);
 			}
 		}
+		
+		.purpleflash {
+			animation: purpleflash 1s;
+			animation-iteration-count: 1;
+		}
+
+		@keyframes purpleflash {
+			0% {background-color: white;}
+			50% {background-color: #9072d6;}
+			100%{background-color: white;}	
+		}
+
+		.yellowflash {
+			animation: yellowflash 1s;
+			animation-iteration-count: 1;
+		}
+
+		@keyframes yellowflash {
+			0% {background-color: white;}
+			50% {background-color: #ffef60;}
+			100%{background-color: white;}	
+		}
+
+		.greenflash {
+			animation: greenflash 1s;
+			animation-iteration-count: 1;
+		}
+
+		@keyframes greenflash {
+			0% {background-color: white;}
+			50% {background-color: #a2faa2;}
+			100%{background-color: white;}	
+		}
 	</style>
 
 	<script src="personaje.js" async></script>
