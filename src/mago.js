@@ -17,7 +17,7 @@ class Mago extends Personaje {
             this.experienciaActual = stats.experienciaActual;
         }else{
             this.ataque = 2;
-            this.poder = 10;
+            this.poder = 20;
             this.defensa = 5;
             this.agilidad = 5;
             this.vidaMaxima = 80;

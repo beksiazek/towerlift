@@ -4,7 +4,7 @@ var claseSeleccionada = null;
 var batalla;
 var elementoAnimado = [null, null];
 
-fetch("https://api.jsonbin.io/b/603c7cbe81087a6a8b93205f/1")
+fetch("https://api.jsonbin.io/b/603c7cbe81087a6a8b93205f/4")
     .then(response => response.json())
     .then(Ia => importarPersonajesIa(Ia));
 
@@ -64,6 +64,10 @@ function cargarPartida() {
             jugador.nombreJugador;
         document.getElementById("main-container").hidden = false;
         mostrarPersonajes();
+
+        if(jugador.personajes.length >= 1){
+            document.getElementById("alert-primerpersonaje").innerHTML = ``;
+        }
 
         document.getElementById('modal-confirmacion').innerHTML = `
             <div class="modal-dialog">
@@ -436,7 +440,10 @@ function batallaVsIa(indicePersonaje) {
     let listaTooltip = listaTriggerTooltip.map(function (elementTriggerTooltip) {
         return new mdb.Tooltip(elementTriggerTooltip)});
 
-    batalla = new Batalla(jugador.personajes[indicePersonaje], listaPersonajesIa[0]);
+    let selector = eleccionIa(jugador.personajes[indicePersonaje].nivel);
+
+    batalla = new Batalla(jugador.personajes[indicePersonaje], listaPersonajesIa[selector]);
+    
     let card = `
     <div id="card-personaje1" class="card shadow-2-strong">
         <a class="text-center" style='font-size:100px;'>${
@@ -487,3 +494,17 @@ function batallaVsIa(indicePersonaje) {
     batalla.pasarTurno();
 }
 
+function eleccionIa(nivelDePersonaje){
+    let selectorBloqueDePersonajes;
+
+    if(nivelDePersonaje > 3){
+        selectorBloqueDePersonajes = 10;
+    }else{
+        selectorBloqueDePersonajes = (nivelDePersonaje - 1) * 5;
+    }
+
+    let eleccion = Math.random() * (5 - 0) + 0;
+    eleccion = Math.round(eleccion) + selectorBloqueDePersonajes;
+    
+    return eleccion;
+}

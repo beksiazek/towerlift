@@ -16,6 +16,8 @@ class Batalla {
 
         setButtonsBatallaDisabled(true);
 
+        let battleFinished = null;
+
         let idPersonajeActivo = Number(this.turn);
         let idPersonajeEnEspera = Number(!this.turn);
 
@@ -29,23 +31,28 @@ class Batalla {
             this.clonPersonaje[idPersonajeEnEspera].vidaActual -= dañoRecibido;
 
             if(this.clonPersonaje[idPersonajeEnEspera].vidaActual <= 0){
+                battleFinished = true;
                 document.getElementById("title-modalbatalla").innerHTML="BATALLA";
                 document.getElementById('msg-ganadorbatalla').innerHTML = `<h4 class='text-center'>El ganador de la batalla es ${this.clonPersonaje[idPersonajeActivo].nombre}!</h4>`;
                 document.getElementById('msg-ganadorbatalla').style.display = 'inline';
                 document.getElementById('body-modal-batalla').style.display = 'none';
-                document.getElementById('button-finalizarsimulacion').onclick= function () { batalla.resetModal(); batalla.personaje.aumentarExperiencia(); }; 
+                document.getElementById('button-finalizarsimulacion').onclick= function () { batalla.personaje.aumentarExperiencia(); batalla.resetModal(); }; 
             }else{
                 let actualizacionDeVida = `${this.clonPersonaje[idPersonajeEnEspera].vidaActual}/${this.clonPersonaje[idPersonajeEnEspera].vidaMaxima}`;
                 let idActualizacionDeVida = 'p-vidaPj'+ (idPersonajeEnEspera+1);
                 document.getElementById(idActualizacionDeVida).innerHTML = actualizacionDeVida;
-                setTimeout(function(){batalla.pasarTurno()}, 1000);
             }
+        }
+        if(!battleFinished){
+            setTimeout(function(){batalla.pasarTurno()}, 1000);
         }
     }
 
     ataqueEspecial() {
         
         setButtonsBatallaDisabled(true);
+
+        let battleFinished = null;
 
         let idPersonajeActivo = Number(this.turn);
         let idPersonajeEnEspera = Number(!this.turn);
@@ -90,19 +97,22 @@ class Batalla {
             this.clonPersonaje[idPersonajeEnEspera].vidaActual -= dañoRecibido;
 
             if(this.clonPersonaje[idPersonajeEnEspera].vidaActual <= 0){
+                battleFinished = true;
                 document.getElementById("title-modalbatalla").innerHTML="BATALLA";
                 document.getElementById('msg-ganadorbatalla').innerHTML = `<h4 class='text-center'>El ganador de la batalla es ${this.clonPersonaje[idPersonajeActivo].nombre}!</h4>`;
                 document.getElementById('msg-ganadorbatalla').style.display = 'inline';
                 document.getElementById('body-modal-batalla').style.display = 'none';
-                document.getElementById('button-finalizarsimulacion').onclick= function () { batalla.resetModal(); batalla.personaje.aumentarExperiencia(); };
+                document.getElementById('button-finalizarsimulacion').onclick= function () { batalla.personaje.aumentarExperiencia(); batalla.resetModal(); };
             }else{
                 for(let i = 0; i<=1; i++){
                     let actualizacionDeVida = `${(this.clonPersonaje[i].vidaActual).toFixed(1)}/${this.clonPersonaje[i].vidaMaxima}`;
                     let idActualizacionDeVida = 'p-vidaPj'+ (i+1);
                     document.getElementById(idActualizacionDeVida).innerHTML = actualizacionDeVida;
                 }
-                setTimeout(function(){batalla.pasarTurno()}, 1500);
             }
+        }
+        if(!battleFinished){
+            setTimeout(function(){batalla.pasarTurno()}, 1500);
         }
     }
 
@@ -116,13 +126,13 @@ class Batalla {
 
         document.getElementById("title-modalbatalla").innerHTML="BATALLA - Turno del Personaje "+(idPersonajeActivo+1);
 
-        playAnimacionTurnoActual(idPersonajeActivo);
+        setTimeout(function(){playAnimacionTurnoActual(idPersonajeActivo)}, 500);
         stopAnimacionTurnoActual(idPersonajeEnEspera);
         
         if(idPersonajeActivo == 1){
             setTimeout(function(){batalla.accionIa()}, 1500);
         }else{
-            setButtonsBatallaDisabled(false);
+            setTimeout(function(){setButtonsBatallaDisabled(false)}, 500);
         }
         var clase = batalla.clonPersonaje[idPersonajeActivo].clase;
         
@@ -172,6 +182,7 @@ class Batalla {
     resetModal(){
         document.getElementById('msg-ganadorbatalla').style.display = 'none';
         document.getElementById('body-modal-batalla').style.display = 'inline';
+        batalla = null;
     }
 }
 
