@@ -58,19 +58,36 @@
 			}
 		}
 		
-		.purpleflash {
-			animation: purpleflash 1s;
+		.pulsating-shadow {
+			animation: pulsatingshadow 2s;
+			animation-iteration-count: infinite;
+		}
+
+		@keyframes pulsatingshadow {
+			0% {
+    			box-shadow: 0 4px 8px 0 rgba(0,0,0,.25),0 5px 15px 2px rgba(0,0,0,.2);
+			}
+			50% {
+    			box-shadow: 0 4px 20px 10px rgba(0,0,0,.25),0 5px 15px 10px rgba(0, 0, 0, 0.3);
+			}
+			100%{
+    			box-shadow: 0 4px 8px 0 rgba(0,0,0,.25),0 5px 15px 2px rgba(0,0,0,.2);
+			}	
+		}
+
+		.redflash {
+			animation: redflash 1.5s;
 			animation-iteration-count: 1;
 		}
 
-		@keyframes purpleflash {
+		@keyframes redflash {
 			0% {background-color: white;}
-			50% {background-color: #9072d6;}
+			50% {background-color: #e44f94;}
 			100%{background-color: white;}	
 		}
 
 		.yellowflash {
-			animation: yellowflash 1s;
+			animation: yellowflash 1.5s;
 			animation-iteration-count: 1;
 		}
 
@@ -80,14 +97,14 @@
 			100%{background-color: white;}	
 		}
 
-		.greenflash {
-			animation: greenflash 1s;
+		.brownflash {
+			animation: brownflash 1.5s;
 			animation-iteration-count: 1;
 		}
 
-		@keyframes greenflash {
+		@keyframes brownflash {
 			0% {background-color: white;}
-			50% {background-color: #a2faa2;}
+			50% {background-color: #bb7b50;}
 			100%{background-color: white;}	
 		}
 	</style>
@@ -198,11 +215,8 @@
 				aria-labelledby="ex1-tab-personajes">
 				<div id="cards-personajes" class="row d-flex justify-content-center mt-4">
 				</div>
-				<div class="d-flex justify-content-center">
-					<button class="btn btn-primary mt-4" onclick="validacionCrearPersonaje()">
-						CREAR PERSONAJE
-					</button>
-				</div>
+				<div id="alert-primerpersonaje" class="row d-flex justify-content-center mt-4"></div>
+
 
 				<div class="modal fade" id="modal-crearpersonaje" tabindex="-1"
 					aria-labelledby="modal-crearpersonajeLabel" aria-hidden="true"
@@ -216,12 +230,12 @@
 								<div class="form-outline">
 									<input type="text" id="input-nombrepersonaje"
 										class="form-control form-control-lg text-center" style='font-size:30px;' />
-									<label class="form-label" for="input-nombrepersonaje">Nombre</label>
+									<label class="form-label" style='font-size:30px;' for="input-nombrepersonaje">Nombre</label>
 								</div>
 								<div class="container">
 									<div class="row">
 										<div class="col-md">
-											<div id="card-asesino" class="card shadow-2-strong"
+											<div id="card-asesino" class="card shadow-2-strong" style="cursor: pointer;"
 												onclick="seleccionDeClase('asesino')">
 												<a class="text-center" style='font-size:100px;'>&#127993;</a>
 												<div class="card-body">
@@ -233,7 +247,7 @@
 											</div>
 										</div>
 										<div class="col-md">
-											<div id="card-demoledor" class="card shadow-2-strong"
+											<div id="card-demoledor" class="card shadow-2-strong" style="cursor: pointer;"
 												onclick="seleccionDeClase('demoledor')">
 												<a class="text-center" style='font-size:100px;'>&#128170;</a>
 												<div class="card-body">
@@ -245,7 +259,7 @@
 											</div>
 										</div>
 										<div class="col-md">
-											<div id="card-mago" class="card shadow-2-strong"
+											<div id="card-mago" class="card shadow-2-strong" style="cursor: pointer;"
 												onclick="seleccionDeClase('mago')">
 												<a class="text-center" style='font-size:100px;'>&#128302;</a>
 												<div class="card-body">
@@ -265,23 +279,6 @@
 								</button>
 								<button type="button" class="btn btn-success" onclick="jugador.crearPersonaje()"
 									data-mdb-dismiss="modal">CREAR</button>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="modal fade" id="modal-limitedepersonajes" tabindex="-1"
-					aria-labelledby="modal-limitedepersonajesLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-body">
-								<p>Ya llegó al límite de creación de personajes! Descarte uno actual antes de intentar
-									crear otro.</p>
-							</div>
-							<div class='modal-footer'>
-								<button type="button" class="btn btn-light" data-mdb-dismiss="modal">
-									&#10060;
-								</button>
 							</div>
 						</div>
 					</div>
@@ -317,7 +314,7 @@
 					<div class="modal-dialog modal-lg">
 						<div class="modal-content">
 							<div class="modal-header d-flex justify-content-center">
-								<h5 class="modal-title">BATALLA</h5>
+								<h5 id="title-modalbatalla" class="modal-title">BATALLA</h5>
 							</div>
 							<div id='msg-ganadorbatalla' style='display: none;'></div>
 							<div id='body-modal-batalla' class="modal-body">
@@ -330,7 +327,7 @@
 											<button class="btn btn-sm btn-outline-dark btn-rounded"
 												data-mdb-ripple-color="dark" onclick="batalla.ataque()">ATAQUE
 												BÁSICO</button>
-											<button class="btn btn-sm btn-outline-dark btn-rounded"
+											<button id="button-atespecial" title="" class="btn btn-sm btn-outline-dark btn-rounded"
 												data-mdb-ripple-color="dark" onclick="batalla.ataqueEspecial()">ATAQUE ESPECIAL</button>
 											<button class="btn btn-sm btn-outline-dark btn-rounded"
 												data-mdb-ripple-color="dark" onclick="batalla.pasarTurno()">PASAR</button>

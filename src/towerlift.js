@@ -14,6 +14,7 @@ function nuevaPartida() {
         jugador = new Jugador(id);
         document.getElementById("empezarpartida-container").hidden = true;
         document.getElementById("player-name").innerHTML = id;
+        mostrarPersonajes();
         document.getElementById("main-container").hidden = false;
     }else{
         document.getElementById('modal-confirmacion').innerHTML = `
@@ -153,44 +154,82 @@ function mostrarPersonajes() {
         </div>
         `;
     }
+    if(jugador.personajes.length <= 3) {
+        cards += `
+        <div class="col-6 col-md-3 col-lg-2">
+            <div class="card shadow-2-strong hover-overlay h-100" style="cursor: pointer;" onclick="showModal('modal-crearpersonaje')">
+                <div class="card-body hover-overlay align-items-center d-flex justify-content-center">
+                    <a class='text-center' style='font-size:100px;'>&#127756</a>
+                    <div class="mask align-items-center d-flex justify-content-center" 
+                        style="background: linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5));">
+                            <a class='text-center' style='font-size:100px;'>&#127756</a>
+                    </div>    
+                </div>
+            </div>
+        </div>
+        `;
+        if(jugador.personajes.length < 1) {
+            let alert = `<div class="text-center alert alert-info alert-dismissible fade show w-50 h-100" role="alert">
+                <h5>Para crear un personaje, haz click en el vórtice!<h5>
+            </div>`;
+            document.getElementById("alert-primerpersonaje").innerHTML = alert;
+        }else{
+            document.getElementById("alert-primerpersonaje").innerHTML = ``;
+        }
+    }
     document.getElementById("cards-personajes").innerHTML = cards;
 }
 
 function mostrarPersonajesParaBatalla() {
     let cards = ``;
-    for (i = 0; i < jugador.personajes.length; i++) {
-        cards += `
-        <div class="col-6 col-md-3 col-lg-2">
-            <div class="card shadow-2-strong hover-overlay">
-                <a class='text-center' style='font-size:100px;'>${
-                    jugador.personajes[i].clase == "ASESINO"
-                        ? "&#127993;"
-                        : jugador.personajes[i].clase == "DEMOLEDOR"
-                        ? "&#128170;"
-                        : "&#128302;"
-                }
-                </a>
-                <div class="card-body hover-overlay text-center">
-                    <h5 class="card-title">${
-                        jugador.personajes[i].nombre
-                    }</h5>   
-                    <p class="card-text">
-                        ${jugador.personajes[i].clase} nvl.${
-            jugador.personajes[i].nivel
-        }
-                    </p>
-                    <div class="mask" 
-                        style="background: linear-gradient(45deg, rgba(29, 236, 197, 0.1), rgba(0, 0, 0, 0.1) 100%);">
-                        <div class="text-center">
-                            <button class="btn btn-sm btn-outline-dark btn-rounded" data-mdb-ripple-color="dark" onclick='batallaVsIa(${i})'>BATALLA vs IA</button>
-                        </div>    
+    if(jugador.personajes.length > 0){
+        for (i = 0; i < jugador.personajes.length; i++) {
+            cards += `
+            <div class="col-6 col-md-3 col-lg-2">
+                <div class="card shadow-2-strong hover-overlay">
+                    <a class='text-center' style='font-size:100px;'>${
+                        jugador.personajes[i].clase == "ASESINO"
+                            ? "&#127993;"
+                            : jugador.personajes[i].clase == "DEMOLEDOR"
+                            ? "&#128170;"
+                            : "&#128302;"
+                    }
+                    </a>
+                    <div class="card-body hover-overlay text-center">
+                        <h5 class="card-title">${
+                            jugador.personajes[i].nombre
+                        }</h5>   
+                        <p class="card-text">
+                            ${jugador.personajes[i].clase} nvl.${
+                            jugador.personajes[i].nivel}
+                        </p>
+                        <div class="mask" 
+                            style="background: linear-gradient(45deg, rgba(29, 236, 197, 0.1), rgba(0, 0, 0, 0.1) 100%);">
+                            <div class="text-center">
+                                <button class="btn btn-sm btn-outline-dark btn-rounded" data-mdb-ripple-color="dark" onclick='batallaVsIa(${i})'>BATALLA vs IA</button>
+                            </div>    
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        `;
+            `;
+        }
+        document.getElementById("cards-personajes-batalla").innerHTML = cards;
+    }else{
+        cards += `
+            <div class="col-6 col-md-3 col-lg-2">
+                <div class="card shadow-2-strong hover-overlay">
+                    <a class='text-center' style='font-size:100px;'>&#10069</a>
+                    <div class="card-body hover-overlay text-center">   
+                        <p class="card-text">
+                            Cree un personaje para poder luchar.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            `;
+        document.getElementById("cards-personajes-batalla").innerHTML = cards;
     }
-    document.getElementById("cards-personajes-batalla").innerHTML = cards;
 }
 
 function seleccionDeClase(clase) {
@@ -229,50 +268,73 @@ function handleModalCrearPersonajeEnter(event) {
     }
 }
 
-function playAnimacionDanio(idCard) {
-    if(elementoAnimado[idCard-1] != null){
-        elementoAnimado[idCard-1].classList.remove('shake');
-        elementoAnimado[idCard-1].classList.remove('greenflash');
-        elementoAnimado[idCard-1].classList.remove('purpleflash');
-        elementoAnimado[idCard-1].classList.remove('yellowflash');
-        void elementoAnimado[idCard-1].offsetWidth;
+function playAnimacionDanio(idPersonaje) {
+    if(elementoAnimado[idPersonaje] != null){
+        elementoAnimado[idPersonaje].classList.remove('shake');
+        elementoAnimado[idPersonaje].classList.remove('brownflash');
+        elementoAnimado[idPersonaje].classList.remove('redflash');
+        elementoAnimado[idPersonaje].classList.remove('yellowflash');
+        elementoAnimado[idPersonaje].classList.remove('pulsating-shadow');
+        elementoAnimado[idPersonaje].classList.add('shadow-2-strong');
+        void elementoAnimado[idPersonaje].offsetWidth;
     }
-    elementoAnimado[idCard-1] = document.getElementById('card-personaje'+idCard);
-    elementoAnimado[idCard-1].classList.add('shake');
+    elementoAnimado[idPersonaje] = document.getElementById('card-personaje'+(idPersonaje+1));
+    elementoAnimado[idPersonaje].classList.add('shake');
 }
 
-function playAnimacionCura(idCard) {
-    if(elementoAnimado[idCard-1] != null){
-        elementoAnimado[idCard-1].classList.remove('greenflash');
-        void elementoAnimado[idCard-1].offsetWidth;
-    }
-    elementoAnimado[idCard-1] = document.getElementById('card-personaje'+idCard);
-    elementoAnimado[idCard-1].classList.add('greenflash');
+function playAnimacionCura(idPersonaje) {
+    elementoAnimado[idPersonaje].classList.add('shadow-2-strong');
+    elementoAnimado[idPersonaje].classList.remove('pulsating-shadow');
+    elementoAnimado[idPersonaje].classList.remove('brownflash');
+    void elementoAnimado[idPersonaje].offsetWidth;
+    elementoAnimado[idPersonaje] = document.getElementById('card-personaje'+(idPersonaje+1));
+    elementoAnimado[idPersonaje].classList.add('brownflash');
 }
 
-function playAnimacionLetal(idCard) {
-    if(elementoAnimado[idCard-1] != null){
-        elementoAnimado[idCard-1].classList.remove('purpleflash');
-        void elementoAnimado[idCard-1].offsetWidth;
-    }
-    elementoAnimado[idCard-1] = document.getElementById('card-personaje'+idCard);
-    elementoAnimado[idCard-1].classList.add('purpleflash');
+function playAnimacionLetal(idPersonaje) {
+    elementoAnimado[idPersonaje].classList.add('shadow-2-strong');
+    elementoAnimado[idPersonaje].classList.remove('pulsating-shadow');
+    elementoAnimado[idPersonaje].classList.remove('redflash');
+    void elementoAnimado[idPersonaje].offsetWidth;
+    elementoAnimado[idPersonaje] = document.getElementById('card-personaje'+(idPersonaje+1));
+    elementoAnimado[idPersonaje].classList.add('redflash');
 }
 
-function playAnimacionMagia(idCard) {
-    if(elementoAnimado[idCard-1] != null){
-        elementoAnimado[idCard-1].classList.remove('yellowflash');
-        void elementoAnimado[idCard-1].offsetWidth;
-    }
-    elementoAnimado[idCard-1] = document.getElementById('card-personaje'+idCard);
-    elementoAnimado[idCard-1].classList.add('yellowflash');
+function playAnimacionMagia(idPersonaje) {
+    elementoAnimado[idPersonaje].classList.add('shadow-2-strong');
+    elementoAnimado[idPersonaje].classList.remove('pulsating-shadow');
+    elementoAnimado[idPersonaje].classList.remove('yellowflash');
+    void elementoAnimado[idPersonaje].offsetWidth;
+    elementoAnimado[idPersonaje] = document.getElementById('card-personaje'+(idPersonaje+1));
+    elementoAnimado[idPersonaje].classList.add('yellowflash');
 }
 
-function validacionCrearPersonaje() {
-    if (jugador.personajes.length < 4) {
-        showModal("modal-crearpersonaje");
-    } else {
-        showModal("modal-limitedepersonajes");
+function playAnimacionTurnoActual(idPersonaje) {
+    if(elementoAnimado[idPersonaje] != null){
+        elementoAnimado[idPersonaje].classList.remove('shake');
+        elementoAnimado[idPersonaje].classList.remove('brownflash');
+        elementoAnimado[idPersonaje].classList.remove('redflash');
+        elementoAnimado[idPersonaje].classList.remove('yellowflash');
+        elementoAnimado[idPersonaje].classList.remove('pulsating-shadow');
+        void elementoAnimado[idPersonaje].offsetWidth;
+    }
+    elementoAnimado[idPersonaje] = document.getElementById('card-personaje'+(idPersonaje+1));
+    elementoAnimado[idPersonaje].classList.remove('shadow-2-strong');
+    elementoAnimado[idPersonaje].classList.add('pulsating-shadow');
+}
+
+function stopAnimacionTurnoActual(idPersonaje) {
+    if(elementoAnimado[idPersonaje] != null){
+        elementoAnimado[idPersonaje].classList.remove('pulsating-shadow');
+        elementoAnimado[idPersonaje].classList.add('shadow-2-strong');
+        void elementoAnimado[idPersonaje].offsetWidth;
+    }
+}
+
+function setButtonsBatallaDisabled(disabledState){
+    let buttons = document.getElementById("container-acciones").getElementsByTagName('button');
+    for(let i = 0; i < buttons.length; i++){
+        buttons[i].disabled = disabledState;
     }
 }
 
@@ -357,6 +419,7 @@ function mensajeSubirDeNivel(nombre, nivel) {
     `;
     showModal('modal-subirdenivel');
     document.getElementById('button-dismissexperiencia').onclick = null;
+    mostrarPersonajesParaBatalla();
 }
 
 function limpiarModalCreacionPersonaje() {
@@ -369,6 +432,10 @@ function limpiarModalCreacionPersonaje() {
 
 
 function batallaVsIa(indicePersonaje) {
+    let listaTriggerTooltip = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    let listaTooltip = listaTriggerTooltip.map(function (elementTriggerTooltip) {
+        return new mdb.Tooltip(elementTriggerTooltip)});
+
     batalla = new Batalla(jugador.personajes[indicePersonaje], listaPersonajesIa[0]);
     let card = `
     <div id="card-personaje1" class="card shadow-2-strong">
@@ -417,5 +484,6 @@ function batallaVsIa(indicePersonaje) {
     document.getElementById("container-personaje2").innerHTML = card;
 
     showModal("modal-batalla");
+    batalla.pasarTurno();
 }
 
