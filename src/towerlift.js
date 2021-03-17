@@ -64,6 +64,7 @@ function cargarPartida() {
             jugador.nombreJugador;
         document.getElementById("main-container").hidden = false;
         mostrarPersonajes();
+        mostrarPersonajesParaBatalla();
 
         if(jugador.personajes.length >= 1){
             document.getElementById("alert-primerpersonaje").innerHTML = ``;
